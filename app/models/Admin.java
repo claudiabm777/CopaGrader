@@ -2,16 +2,18 @@ package models;
 
 import com.avaje.ebean.Model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
 
 /**
  * Created by Asus on 02/06/2015.
  */
 @Entity
 public class Admin extends Model{
+
+    //--------------------------------------------------------------------------------------------------------------------------
+    //Attributes----------------------------------------------------------------------------------------------------------------
+    //--------------------------------------------------------------------------------------------------------------------------
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
@@ -24,6 +26,12 @@ public class Admin extends Model{
     private String contrasenia;
     private Boolean habilitado;
 
+    @ManyToMany(cascade = CascadeType.ALL)
+    private List<Course>courses;
+
+    //--------------------------------------------------------------------------------------------------------------------------
+    //Getters-------------------------------------------------------------------------------------------------------------------
+    //--------------------------------------------------------------------------------------------------------------------------
     public Boolean getHabilitado() {
         return habilitado;
     }
@@ -56,6 +64,9 @@ public class Admin extends Model{
         return names;
     }
 
+    //--------------------------------------------------------------------------------------------------------------------------
+    //Setters-------------------------------------------------------------------------------------------------------------------
+    //--------------------------------------------------------------------------------------------------------------------------
     public void setContrasenia(String contrasenia) {
         this.contrasenia = contrasenia;
     }

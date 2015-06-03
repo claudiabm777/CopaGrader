@@ -2,16 +2,18 @@ package models;
 
 import com.avaje.ebean.Model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
 
 /**
  * Created by Asus on 02/06/2015.
  */
 @Entity
 public class Grader extends Model {
+
+    //--------------------------------------------------------------------------------------------------------------------------
+    //Attributes----------------------------------------------------------------------------------------------------------------
+    //--------------------------------------------------------------------------------------------------------------------------
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
@@ -25,6 +27,11 @@ public class Grader extends Model {
     private Boolean habilitado;
     private Integer cargo;
 
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<Team>teams;
+    //--------------------------------------------------------------------------------------------------------------------------
+    //Getters-------------------------------------------------------------------------------------------------------------------
+    //--------------------------------------------------------------------------------------------------------------------------
     public Boolean getHabilitado() {
         return habilitado;
     }
@@ -61,6 +68,9 @@ public class Grader extends Model {
         return names;
     }
 
+    //--------------------------------------------------------------------------------------------------------------------------
+    //Setters-------------------------------------------------------------------------------------------------------------------
+    //--------------------------------------------------------------------------------------------------------------------------
     public void setCargo(Integer cargo) {
         this.cargo = cargo;
     }

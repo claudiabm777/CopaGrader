@@ -11,6 +11,10 @@ import java.util.*;
  */
 @Entity
 public class Activity extends Model {
+
+    //--------------------------------------------------------------------------------------------------------------------------
+    //Attributes----------------------------------------------------------------------------------------------------------------
+    //--------------------------------------------------------------------------------------------------------------------------
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
@@ -22,6 +26,19 @@ public class Activity extends Model {
 
     @Formats.DateTime(pattern="dd/MM/yyyy")
     public Date creationDate;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<Task>tasks;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<Team>teams;
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    private List<Admin>adminsInCharge;
+
+    //--------------------------------------------------------------------------------------------------------------------------
+    //Getters-------------------------------------------------------------------------------------------------------------------
+    //--------------------------------------------------------------------------------------------------------------------------
 
     public Date getCreationDate() {
         return creationDate;
@@ -38,6 +55,10 @@ public class Activity extends Model {
     public String getName() {
         return name;
     }
+
+    //--------------------------------------------------------------------------------------------------------------------------
+    //Setters-------------------------------------------------------------------------------------------------------------------
+    //--------------------------------------------------------------------------------------------------------------------------
 
     public void setCreationDate(Date creationDate) {
         this.creationDate = creationDate;

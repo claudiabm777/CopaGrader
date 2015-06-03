@@ -5,12 +5,17 @@ import com.avaje.ebean.Model;
 
 import javax.persistence.GenerationType;
 import javax.persistence.*;
+import java.util.List;
 
 /**
  * Created by Asus on 02/06/2015.
  */
 @Entity
 public class Semester extends Model {
+
+    //--------------------------------------------------------------------------------------------------------------------------
+    //Attributes----------------------------------------------------------------------------------------------------------------
+    //--------------------------------------------------------------------------------------------------------------------------
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
@@ -18,18 +23,17 @@ public class Semester extends Model {
     private Integer period;
     private Integer year;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    @ManyToMany(cascade = CascadeType.ALL)
+    private List<Grader>graders;
 
-    public void setPeriod(Integer period) {
-        this.period = period;
-    }
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<Student>students;
 
-    public void setYear(Integer year) {
-        this.year = year;
-    }
-
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<Activity>activities;
+    //--------------------------------------------------------------------------------------------------------------------------
+    //Getters-------------------------------------------------------------------------------------------------------------------
+    //--------------------------------------------------------------------------------------------------------------------------
     public Integer getPeriod() {
         return period;
     }
@@ -42,4 +46,18 @@ public class Semester extends Model {
         return id;
     }
 
+    //--------------------------------------------------------------------------------------------------------------------------
+    //Setters-------------------------------------------------------------------------------------------------------------------
+    //--------------------------------------------------------------------------------------------------------------------------
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setPeriod(Integer period) {
+        this.period = period;
+    }
+
+    public void setYear(Integer year) {
+        this.year = year;
+    }
 }

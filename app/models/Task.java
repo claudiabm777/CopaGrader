@@ -2,30 +2,29 @@ package models;
 
 import com.avaje.ebean.Model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
 
 /**
  * Created by Asus on 02/06/2015.
  */
 @Entity
 public class Task extends Model {
+
+    //--------------------------------------------------------------------------------------------------------------------------
+    //Attributes----------------------------------------------------------------------------------------------------------------
+    //--------------------------------------------------------------------------------------------------------------------------
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
 
     private String name;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<Bullet>bullets;
+    //--------------------------------------------------------------------------------------------------------------------------
+    //Getters-------------------------------------------------------------------------------------------------------------------
+    //--------------------------------------------------------------------------------------------------------------------------
     public Long getId() {
         return id;
     }
@@ -34,4 +33,14 @@ public class Task extends Model {
         return name;
     }
 
+    //--------------------------------------------------------------------------------------------------------------------------
+    //Setters-------------------------------------------------------------------------------------------------------------------
+    //--------------------------------------------------------------------------------------------------------------------------
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 }
