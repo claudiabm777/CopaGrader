@@ -15,4 +15,11 @@ public class Course extends Model{
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
+
+    private String name;
+    private Integer credits;
+    private String department;
+    private String code;
+    private Integer crn;
+
 }
