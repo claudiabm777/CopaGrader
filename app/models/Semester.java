@@ -26,11 +26,15 @@ public class Semester extends Model {
     @ManyToMany(cascade = CascadeType.ALL)
     private List<Grader>graders;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(mappedBy="semester",cascade = CascadeType.ALL)
     private List<Student>students;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(mappedBy="semester",cascade = CascadeType.ALL)
     private List<Activity>activities;
+
+    public static Finder<Long,Semester> find = new Finder<Long,Semester>(
+            Long.class, Semester.class
+    );
     //--------------------------------------------------------------------------------------------------------------------------
     //Getters-------------------------------------------------------------------------------------------------------------------
     //--------------------------------------------------------------------------------------------------------------------------

@@ -1,7 +1,6 @@
 package models;
 
 import com.avaje.ebean.Model;
-
 import javax.persistence.*;
 import java.util.List;
 
@@ -20,8 +19,18 @@ public class Team extends Model {
 
     private String name;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.ALL)
     private List<Student>students;
+
+    @ManyToOne
+    private Activity activity;
+
+    @ManyToOne
+    private Grader grader;
+
+    public static Finder<Long,Team> find = new Finder<Long,Team>(
+            Long.class, Team.class
+    );
     //--------------------------------------------------------------------------------------------------------------------------
     //Getters-------------------------------------------------------------------------------------------------------------------
     //--------------------------------------------------------------------------------------------------------------------------
@@ -43,5 +52,4 @@ public class Team extends Model {
     public void setName(String name) {
         this.name = name;
     }
-
 }

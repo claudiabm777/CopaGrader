@@ -29,6 +29,13 @@ public class Admin extends Model{
     @ManyToMany(cascade = CascadeType.ALL)
     private List<Course>courses;
 
+    @ManyToOne
+    private Activity activity;
+
+    public static Finder<Long,Admin> find = new Finder<Long,Admin>(
+            Long.class, Admin.class
+    );
+
     //--------------------------------------------------------------------------------------------------------------------------
     //Getters-------------------------------------------------------------------------------------------------------------------
     //--------------------------------------------------------------------------------------------------------------------------

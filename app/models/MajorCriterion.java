@@ -21,8 +21,15 @@ public class MajorCriterion extends Model {
     @Lob
     private String description;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @ManyToOne
+    private Bullet bullet;
+
+    @OneToMany(mappedBy="majorCriterion",cascade = CascadeType.ALL)
     private List<Criterion>criterions;
+
+    public static Finder<Long,MajorCriterion> find = new Finder<Long,MajorCriterion>(
+            Long.class, MajorCriterion.class
+    );
     //--------------------------------------------------------------------------------------------------------------------------
     //Getters-------------------------------------------------------------------------------------------------------------------
     //--------------------------------------------------------------------------------------------------------------------------

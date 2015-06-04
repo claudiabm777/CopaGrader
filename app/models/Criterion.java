@@ -21,14 +21,21 @@ public class Criterion extends Model {
     @Lob
     private String description;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(mappedBy="criterion", cascade = CascadeType.ALL)
     private List<OptionRequest>optionRequests;
 
     @OneToOne(cascade = CascadeType.ALL)
     private Claim claim;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(mappedBy="criterion",cascade = CascadeType.ALL)
     private List<Option>options;
+
+    @ManyToOne
+    private MajorCriterion majorCriterion;
+
+    public static Finder<Long,Criterion> find = new Finder<Long,Criterion>(
+            Long.class, Criterion.class
+    );
     //--------------------------------------------------------------------------------------------------------------------------
     //Getters-------------------------------------------------------------------------------------------------------------------
     //--------------------------------------------------------------------------------------------------------------------------

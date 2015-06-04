@@ -27,14 +27,21 @@ public class Activity extends Model {
     @Formats.DateTime(pattern="dd/MM/yyyy")
     public Date creationDate;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(mappedBy="activity",cascade = CascadeType.ALL)
     private List<Task>tasks;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(mappedBy="activity",cascade = CascadeType.ALL)
     private List<Team>teams;
 
     @ManyToMany(cascade = CascadeType.ALL)
     private List<Admin>adminsInCharge;
+
+    @ManyToOne
+    private Semester semester;
+
+    public static Finder<Long,Activity> find = new Finder<Long,Activity>(
+            Long.class, Activity.class
+    );
 
     //--------------------------------------------------------------------------------------------------------------------------
     //Getters-------------------------------------------------------------------------------------------------------------------

@@ -3,10 +3,7 @@ package models;
 import com.avaje.ebean.Model;
 import scala.Int;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 /**
  * Created by Asus on 02/06/2015.
@@ -28,7 +25,12 @@ public class Student extends Model {
     private Integer magisSection;
     private Integer complSection;
 
+    @ManyToOne
+    private Semester semester;
 
+    public static Finder<Long,Student> find = new Finder<Long,Student>(
+            Long.class, Student.class
+    );
     //--------------------------------------------------------------------------------------------------------------------------
     //Getters-------------------------------------------------------------------------------------------------------------------
     //--------------------------------------------------------------------------------------------------------------------------

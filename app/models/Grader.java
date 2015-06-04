@@ -27,8 +27,12 @@ public class Grader extends Model {
     private Boolean habilitado;
     private Integer cargo;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(mappedBy="grader",cascade = CascadeType.ALL)
     private List<Team>teams;
+
+    public static Finder<Long,Grader> find = new Finder<Long,Grader>(
+            Long.class, Grader.class
+    );
     //--------------------------------------------------------------------------------------------------------------------------
     //Getters-------------------------------------------------------------------------------------------------------------------
     //--------------------------------------------------------------------------------------------------------------------------

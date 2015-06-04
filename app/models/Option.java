@@ -24,6 +24,12 @@ public class Option extends Model {
     private Boolean isSelected;
     private Boolean isPenalty;
 
+    @ManyToOne
+    private Criterion criterion;
+
+    public static Finder<Long,Option> find = new Finder<Long,Option>(
+            Long.class, Option.class
+    );
     //--------------------------------------------------------------------------------------------------------------------------
     //Getters-------------------------------------------------------------------------------------------------------------------
     //--------------------------------------------------------------------------------------------------------------------------
