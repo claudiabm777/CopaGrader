@@ -5,6 +5,7 @@ import play.data.format.Formats;
 
 import javax.persistence.*;
 import java.util.*;
+import java.util.function.BooleanSupplier;
 
 /**
  * Created by Asus on 02/06/2015.
@@ -22,10 +23,10 @@ public class Activity extends Model {
     private String name;
 
     @Formats.DateTime(pattern="dd/MM/yyyy")
-    public Date deadline;
+    private Date deadline;
 
     @Formats.DateTime(pattern="dd/MM/yyyy")
-    public Date creationDate;
+    private Date creationDate;
 
     @OneToMany(mappedBy="activity",cascade = CascadeType.ALL)
     private List<Task>tasks;
@@ -42,6 +43,16 @@ public class Activity extends Model {
     public static Finder<Long,Activity> find = new Finder<Long,Activity>(
             Long.class, Activity.class
     );
+
+    //--------------------------------------------------------------------------------------------------------------------------
+    //Getters-------------------------------------------------------------------------------------------------------------------
+    //--------------------------------------------------------------------------------------------------------------------------
+    public Activity(String name, Date deadline, Date creationDate, Semester semester){
+        this.name=name;
+        this.deadline=deadline;
+        this.creationDate=creationDate;
+        this.semester=semester;
+    }
 
     //--------------------------------------------------------------------------------------------------------------------------
     //Getters-------------------------------------------------------------------------------------------------------------------
@@ -63,6 +74,21 @@ public class Activity extends Model {
         return name;
     }
 
+    public List<Admin> getAdminsInCharge() {
+        return adminsInCharge;
+    }
+
+    public List<Task> getTasks() {
+        return tasks;
+    }
+
+    public List<Team> getTeams() {
+        return teams;
+    }
+
+    public Semester getSemester() {
+        return semester;
+    }
     //--------------------------------------------------------------------------------------------------------------------------
     //Setters-------------------------------------------------------------------------------------------------------------------
     //--------------------------------------------------------------------------------------------------------------------------
@@ -82,5 +108,55 @@ public class Activity extends Model {
     public void setName(String name) {
         this.name = name;
     }
+
+    public void setAdminsInCharge(List<Admin> adminsInCharge) {
+        this.adminsInCharge = adminsInCharge;
+    }
+
+    public void setSemester(Semester semester) {
+        this.semester = semester;
+    }
+
+    public void setTasks(List<Task> tasks) {
+        this.tasks = tasks;
+    }
+
+    public void setTeams(List<Team> teams) {
+        this.teams = teams;
+    }
+    //--------------------------------------------------------------------------------------------------------------------------
+    //Methods-------------------------------------------------------------------------------------------------------------------
+    //--------------------------------------------------------------------------------------------------------------------------
+    /*
+    Add an admin in charge
+     */
+    public void addAdminInCharge(Long idAdmin) throws Exception {
+        Admin newAdmin=Admin.find.byId(idAdmin);
+        if(newAdmin==null){
+            throw new Exception("El asistente a cargo que esta tratando de agregar no existe.");
+        }
+        for(int i=0;i<adminsInCharge.size();i++){
+            if(adminsInCharge.get(i).getId()==newAdmin.getId())
+            {
+                throw new Exception("El asistente a cargo que se trata de agregar ya había sido agregado en esta actividad.");
+            }
+        }
+        adminsInCharge.add(newAdmin);
+    }
+
+    public void addTask(Long idTask) throws Exception {
+        Task newTask=Task.find.byId(idTask);
+        if(newTask==null){
+            throw new Exception("El punto que se trata de agregar no existe.");
+        }
+        for(int i=0;i<tasks.size();i++){
+            if(tasks.get(i).getId()==newTask.getId())
+            {
+                throw new Exception("El punto que se esta tratando de agregar ya se había agregado.");
+            }
+        }
+        tasks.add(newTask);
+    }
+
 
 }
