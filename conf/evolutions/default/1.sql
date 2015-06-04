@@ -43,13 +43,12 @@ create table claim (
 ;
 
 create table course (
-  id                        bigint auto_increment not null,
+  code                      varchar(255) not null,
   name                      varchar(255),
   credits                   integer,
   department                varchar(255),
-  code                      varchar(255),
   crn                       integer,
-  constraint pk_course primary key (id))
+  constraint pk_course primary key (code))
 ;
 
 create table criterion (
@@ -157,14 +156,14 @@ create table activity_admin (
 
 create table admin_course (
   admin_id                       bigint not null,
-  course_id                      bigint not null,
-  constraint pk_admin_course primary key (admin_id, course_id))
+  course_code                    varchar(255) not null,
+  constraint pk_admin_course primary key (admin_id, course_code))
 ;
 
 create table course_semester (
-  course_id                      bigint not null,
+  course_code                    varchar(255) not null,
   semester_id                    bigint not null,
-  constraint pk_course_semester primary key (course_id, semester_id))
+  constraint pk_course_semester primary key (course_code, semester_id))
 ;
 
 create table semester_grader (
@@ -178,6 +177,8 @@ create table team_student (
   student_id                     bigint not null,
   constraint pk_team_student primary key (team_id, student_id))
 ;
+create sequence course_seq;
+
 alter table activity add constraint fk_activity_semester_1 foreign key (semester_id) references semester (id) on delete restrict on update restrict;
 create index ix_activity_semester_1 on activity (semester_id);
 alter table admin add constraint fk_admin_activity_2 foreign key (activity_id) references activity (id) on delete restrict on update restrict;
@@ -217,9 +218,9 @@ alter table activity_admin add constraint fk_activity_admin_admin_02 foreign key
 
 alter table admin_course add constraint fk_admin_course_admin_01 foreign key (admin_id) references admin (id) on delete restrict on update restrict;
 
-alter table admin_course add constraint fk_admin_course_course_02 foreign key (course_id) references course (id) on delete restrict on update restrict;
+alter table admin_course add constraint fk_admin_course_course_02 foreign key (course_code) references course (code) on delete restrict on update restrict;
 
-alter table course_semester add constraint fk_course_semester_course_01 foreign key (course_id) references course (id) on delete restrict on update restrict;
+alter table course_semester add constraint fk_course_semester_course_01 foreign key (course_code) references course (code) on delete restrict on update restrict;
 
 alter table course_semester add constraint fk_course_semester_semester_02 foreign key (semester_id) references semester (id) on delete restrict on update restrict;
 
@@ -276,4 +277,6 @@ drop table if exists team;
 drop table if exists team_student;
 
 SET REFERENTIAL_INTEGRITY TRUE;
+
+drop sequence if exists course_seq;
 
