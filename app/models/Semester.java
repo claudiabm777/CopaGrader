@@ -5,6 +5,7 @@ import com.avaje.ebean.Model;
 
 import javax.persistence.GenerationType;
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -17,11 +18,7 @@ public class Semester extends Model {
     //Attributes----------------------------------------------------------------------------------------------------------------
     //--------------------------------------------------------------------------------------------------------------------------
     @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
-    private Long id;
-
-    private Integer period;
-    private Integer year;
+     private String period;
 
     @ManyToMany(cascade = CascadeType.ALL)
     private List<Grader>graders;
@@ -32,36 +29,56 @@ public class Semester extends Model {
     @OneToMany(mappedBy="semester",cascade = CascadeType.ALL)
     private List<Activity>activities;
 
-    public static Finder<Long,Semester> find = new Finder<Long,Semester>(
-            Long.class, Semester.class
+    public static Finder<String,Semester> find = new Finder<String,Semester>(
+            String.class, Semester.class
     );
+
+    //--------------------------------------------------------------------------------------------------------------------------
+    //Constructor---------------------------------------------------------------------------------------------------------------
+    //--------------------------------------------------------------------------------------------------------------------------
+    public Semester(String period){
+        this.period=period;
+        this.graders=new ArrayList<Grader>();
+        this.students=new ArrayList<Student>();
+        this.activities=new ArrayList<Activity>();
+    }
+
     //--------------------------------------------------------------------------------------------------------------------------
     //Getters-------------------------------------------------------------------------------------------------------------------
     //--------------------------------------------------------------------------------------------------------------------------
-    public Integer getPeriod() {
+    public String getPeriod() {
         return period;
     }
 
-    public Integer getYear() {
-        return year;
+    public List<Student> getStudents() {
+        return students;
     }
 
-    public Long getId() {
-        return id;
+    public List<Grader> getGraders() {
+        return graders;
+    }
+
+    public List<Activity> getActivities() {
+        return activities;
     }
 
     //--------------------------------------------------------------------------------------------------------------------------
     //Setters-------------------------------------------------------------------------------------------------------------------
     //--------------------------------------------------------------------------------------------------------------------------
-    public void setId(Long id) {
-        this.id = id;
+
+    public void setActivities(List<Activity> activities) {
+        this.activities = activities;
     }
 
-    public void setPeriod(Integer period) {
+    public void setGraders(List<Grader> graders) {
+        this.graders = graders;
+    }
+
+    public void setPeriod(String period) {
         this.period = period;
     }
 
-    public void setYear(Integer year) {
-        this.year = year;
+    public void setStudents(List<Student> students) {
+        this.students = students;
     }
 }

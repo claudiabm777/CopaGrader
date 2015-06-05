@@ -10,8 +10,9 @@ GET     /                           controllers.Application.index()
 # COURSES: /courses
 POST    /courses/create             controllers.CourseController.createCourse()
 GET     /courses/allCourses         controllers.CourseController.getCourses()
-POST     /courses/aCourse            controllers.CourseController.getCourseId()
+POST    /courses/aCourse            controllers.CourseController.getCourseId()
 POST    /courses/delete             controllers.CourseController.deleteCourseId()
+
 #######################################################################################################################
 
 #######################################################################################################################

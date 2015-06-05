@@ -1,11 +1,13 @@
 package controllers;
 
+import Exceptions.CourseException;
+import Exceptions.ErrorMessage;
+import Exceptions.SemesterException;
 import com.fasterxml.jackson.databind.JsonNode;
 import models.Course;
-import play.*;
+import models.Semester;
 import play.libs.Json;
 import play.mvc.*;
-import views.html.*;
 
 import java.util.List;
 
@@ -26,6 +28,10 @@ public class CourseController extends Controller {
         try {
             JsonNode newCourse = Controller.request().body().asJson();
             Course course = Course.transformJson(newCourse);
+            Course old=Course.find.byId(course.getCode());
+            if(old!=null){
+                throw new CourseException(old, ErrorMessage.ALREADY_CREATED);
+            }
             course.save();
             return ok();
         }catch (Throwable e){
@@ -42,7 +48,7 @@ public class CourseController extends Controller {
             List<Course> courses=Course.find.all();
             return ok(Json.toJson(courses));
         }catch (Throwable e){
-            return badRequest();
+            return badRequest(e.getMessage());
         }
     }
 
@@ -53,11 +59,15 @@ public class CourseController extends Controller {
     @BodyParser.Of(BodyParser.Json.class)
     public Result deleteCourseId(){
         try {
-            String idCourse = Controller.request().body().asJson().findPath("id").asText();
-            Course.find.byId(idCourse).delete();
+            String idCourse = Controller.request().body().asJson().findPath("idCourse").asText();
+            Course course=Course.find.byId(idCourse);
+            if(course==null){
+                throw new CourseException(idCourse, ErrorMessage.NOT_CREATED);
+            }
+            course.delete();
             return ok();
         }catch (Throwable e){
-            return badRequest();
+            return badRequest(e.getMessage());
         }
 
     }
@@ -69,13 +79,63 @@ public class CourseController extends Controller {
     @BodyParser.Of(BodyParser.Json.class)
     public Result getCourseId(){
         try {
-            String idCourse = Controller.request().body().asJson().findPath("id").asText();
+            String idCourse = Controller.request().body().asJson().findPath("idCourse").asText();
             Course course=Course.find.byId(idCourse);
             return ok(Json.toJson(course));
         }catch (Throwable e){
-            return badRequest();
+            return badRequest(e.getMessage());
         }
 
+    }
+
+    /**
+     * This method adds a semester to a course. Both they have to be created in the system.
+     * @return Result
+     */
+    @BodyParser.Of(BodyParser.Json.class)
+    public Result addSemesterToCourse(){
+        try{
+            String idSemester = Controller.request().body().asJson().findPath("idSemester").asText();
+            String idCourse = Controller.request().body().asJson().findPath("idCourse").asText();
+            Course course=Course.find.byId(idCourse);
+            if(course==null){
+                throw new CourseException(idCourse,ErrorMessage.NOT_CREATED);
+            }
+            Semester semester=Semester.find.byId(idSemester);
+            if(semester==null){
+                throw new SemesterException(idSemester,ErrorMessage.NOT_CREATED);
+            }
+            course.addSemesterToCourse(semester);
+            return ok();
+        }catch (Throwable e){
+            return badRequest(e.getMessage());
+        }
+    }
+
+    /**
+     * This method edits the basic information of a course.
+     * @return
+     */
+    @BodyParser.Of(BodyParser.Json.class)
+    public Result editCourse(){
+        try {
+            JsonNode newCourse = Controller.request().body().asJson();
+            String oldId=newCourse.findPath("oldId").asText();
+            Course course = Course.transformJson(newCourse);
+            Course course1 = Course.find.byId(oldId);
+            if (course1 == null) {
+                throw new CourseException(course.getCode(), ErrorMessage.NOT_CREATED);
+            }
+            course1.setCode(course.getCode());
+            course1.setCredits(course.getCredits());
+            course1.setCrn(course.getCrn());
+            course1.setDepartment(course.getDepartment());
+            course1.setName(course.getName());
+            course1.save();
+            return ok();
+        }catch (Throwable e){
+            return badRequest(e.getMessage());
+        }
     }
 
 

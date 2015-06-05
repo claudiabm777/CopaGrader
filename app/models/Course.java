@@ -101,14 +101,18 @@ public class Course extends Model{
     //--------------------------------------------------------------------------------------------------------------------------
     //Methods-------------------------------------------------------------------------------------------------------------------
     //--------------------------------------------------------------------------------------------------------------------------
-    public static Course transformJson(JsonNode j)throws Throwable{
+    public static Course transformJson(JsonNode j){
         String name = j.findPath("name").asText();
         Integer credits=j.findPath("credits").asInt();
         String department = j.findPath("department").asText();
         String code = j.findPath("code").asText();
         Integer crn = j.findPath("crn").asInt();
 
-        Course p = new Course(name, credits, department,code,crn);
-        return p;
+        Course course = new Course(name, credits, department,code,crn);
+        return course;
+    }
+
+    public void addSemesterToCourse(Semester semester){
+        semesters.add(semester);
     }
 }
