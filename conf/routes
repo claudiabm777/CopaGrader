@@ -18,7 +18,8 @@ POST    /courses/deleteSemester     controllers.CourseController.deleteSemesterF
 POST    /courses/getSemesters       controllers.CourseController.getSemestersFromCourse()
 POST    /courses/getASemester       controllers.CourseController.getASemesterFromCourse()
 #######################################################################################################################
-
+# SEMESTERS: /semesters
+GET     /semesters/allSemesters     controllers.SemesterController.getSemesters()
 #######################################################################################################################
 
 #######################################################################################################################
