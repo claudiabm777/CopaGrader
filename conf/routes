@@ -12,7 +12,10 @@ POST    /courses/create             controllers.CourseController.createCourse()
 GET     /courses/allCourses         controllers.CourseController.getCourses()
 POST    /courses/aCourse            controllers.CourseController.getCourseId()
 POST    /courses/delete             controllers.CourseController.deleteCourseId()
-
+POST    /courses/edit               controllers.CourseController.editCourse()
+POST    /courses/addSemester        controllers.CourseController.addSemesterToCourse()
+POST    /courses/deleteSemester     controllers.CourseController.deleteSemesterFromCourse()
+POST    /courses/getSemesters       controllers.CourseController.getSemestersFromCourse()
 #######################################################################################################################
 
 #######################################################################################################################

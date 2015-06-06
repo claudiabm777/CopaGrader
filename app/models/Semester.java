@@ -1,6 +1,7 @@
 package models;
 
 import com.avaje.ebean.Model;
+import com.fasterxml.jackson.databind.JsonNode;
 
 
 import javax.persistence.GenerationType;
@@ -18,6 +19,9 @@ public class Semester extends Model {
     //Attributes----------------------------------------------------------------------------------------------------------------
     //--------------------------------------------------------------------------------------------------------------------------
     @Id
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    private Long id;
+
      private String period;
 
     @ManyToMany(cascade = CascadeType.ALL)
@@ -29,9 +33,12 @@ public class Semester extends Model {
     @OneToMany(mappedBy="semester",cascade = CascadeType.ALL)
     private List<Activity>activities;
 
-    public static Finder<String,Semester> find = new Finder<String,Semester>(
-            String.class, Semester.class
+    public static Finder<Long,Semester> find = new Finder<Long,Semester>(
+            Long.class, Semester.class
     );
+
+    @ManyToOne
+    private Course course;
 
     //--------------------------------------------------------------------------------------------------------------------------
     //Constructor---------------------------------------------------------------------------------------------------------------
@@ -62,7 +69,14 @@ public class Semester extends Model {
         return activities;
     }
 
-    //--------------------------------------------------------------------------------------------------------------------------
+    //public Course getCourse() {
+      //  return course;
+    //}
+
+    public Long getId() {
+        return id;
+    }
+//--------------------------------------------------------------------------------------------------------------------------
     //Setters-------------------------------------------------------------------------------------------------------------------
     //--------------------------------------------------------------------------------------------------------------------------
 
@@ -80,5 +94,32 @@ public class Semester extends Model {
 
     public void setStudents(List<Student> students) {
         this.students = students;
+    }
+
+    public void setCourse(Course course) {
+        this.course = course;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+    //--------------------------------------------------------------------------------------------------------------------------
+    //Methods-------------------------------------------------------------------------------------------------------------------
+    //--------------------------------------------------------------------------------------------------------------------------
+
+    public static Semester transformJson(JsonNode j){
+        String period1 = j.findPath("period").asText();
+        Semester semester = new Semester(period1);
+        return semester;
+    }
+
+    public static Integer searchSemesterInAList(List<Semester>semesters,Long idSemester){
+        for(int i=0;i<semesters.size();i++){
+            Semester semester=semesters.get(i);
+            if(semester.getId().equals(idSemester)){
+                return i;
+            }
+        }
+        return -1;
     }
 }

@@ -1,6 +1,8 @@
 package models;
 
 import Exceptions.CourseException;
+import Exceptions.ErrorMessage;
+import Exceptions.SemesterException;
 import com.avaje.ebean.Model;
 import com.fasterxml.jackson.databind.JsonNode;
 
@@ -25,7 +27,7 @@ public class Course extends Model{
     private String code;
     private Integer crn;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL)
     private List<Semester>semesters;
 
     public static Finder<String,Course> find = new Finder<String,Course>(
@@ -114,5 +116,24 @@ public class Course extends Model{
 
     public void addSemesterToCourse(Semester semester){
         semesters.add(semester);
+
+    }
+    public void deleteSemesterFromCourse(Long idSemester) throws SemesterException {
+        Integer i=Semester.searchSemesterInAList(semesters,idSemester);
+        if(i==-1){
+            throw new SemesterException(ErrorMessage.NOT_CREATED);
+        }
+        Semester semester=semesters.get(i);
+        semester.delete();
+    }
+
+    public static Integer searchCourseInAList(List<Course>courses,String idCourse){
+        for(int i=0;i<courses.size();i++){
+            Course course=courses.get(i);
+            if(course.getCode().equals(idCourse)){
+                return i;
+            }
+        }
+        return -1;
     }
 }

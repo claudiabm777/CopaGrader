@@ -3,6 +3,7 @@ package controllers;
 import Exceptions.CourseException;
 import Exceptions.ErrorMessage;
 import Exceptions.SemesterException;
+import com.avaje.ebean.Ebean;
 import com.fasterxml.jackson.databind.JsonNode;
 import models.Course;
 import models.Semester;
@@ -95,17 +96,17 @@ public class CourseController extends Controller {
     @BodyParser.Of(BodyParser.Json.class)
     public Result addSemesterToCourse(){
         try{
-            String idSemester = Controller.request().body().asJson().findPath("idSemester").asText();
+            JsonNode j=Controller.request().body().asJson();
+            Semester semester=Semester.transformJson(j);
+
             String idCourse = Controller.request().body().asJson().findPath("idCourse").asText();
             Course course=Course.find.byId(idCourse);
             if(course==null){
                 throw new CourseException(idCourse,ErrorMessage.NOT_CREATED);
             }
-            Semester semester=Semester.find.byId(idSemester);
-            if(semester==null){
-                throw new SemesterException(idSemester,ErrorMessage.NOT_CREATED);
-            }
+            semester.setCourse(course);
             course.addSemesterToCourse(semester);
+            course.save();
             return ok();
         }catch (Throwable e){
             return badRequest(e.getMessage());
@@ -113,8 +114,50 @@ public class CourseController extends Controller {
     }
 
     /**
-     * This method edits the basic information of a course.
+     * This method deletes a semester from a course.
+     * The information received throw the json have to be ok.
+     * @return Result
+     */
+    @BodyParser.Of(BodyParser.Json.class)
+    public Result deleteSemesterFromCourse(){
+        try {
+            Long idSemester = Controller.request().body().asJson().findPath("idSemester").asLong();
+            String idCourse = Controller.request().body().asJson().findPath("idCourse").asText();
+            Course course = Course.find.byId(idCourse);
+            if (course == null) {
+                throw new CourseException(idCourse, ErrorMessage.NOT_CREATED);
+            }
+            course.deleteSemesterFromCourse(idSemester);
+            course.update();
+            return ok();
+
+        }catch (Throwable e){
+            return badRequest(e.getMessage());
+        }
+    }
+
+    /**
+     * This method gets the semesters of a course.
+     * If the course have not semesters, returns an ok whit an empty json.
      * @return
+     */
+    @BodyParser.Of(BodyParser.Json.class)
+    public Result getSemestersFromCourse(){
+        try{
+            String idCourse = Controller.request().body().asJson().findPath("idCourse").asText();
+            Course course = Course.find.byId(idCourse);
+            if(course==null){
+                throw new CourseException(idCourse,ErrorMessage.NOT_CREATED);
+            }
+            List<Semester>semesters=course.getSemesters();
+            return ok(Json.toJson(semesters));
+        }catch (Throwable e){
+            return badRequest(e.getMessage());
+        }
+    }
+    /**
+     * This method edits the basic information of a course.
+     * @return Result
      */
     @BodyParser.Of(BodyParser.Json.class)
     public Result editCourse(){
@@ -126,17 +169,21 @@ public class CourseController extends Controller {
             if (course1 == null) {
                 throw new CourseException(course.getCode(), ErrorMessage.NOT_CREATED);
             }
-            course1.setCode(course.getCode());
-            course1.setCredits(course.getCredits());
-            course1.setCrn(course.getCrn());
-            course1.setDepartment(course.getDepartment());
-            course1.setName(course.getName());
-            course1.save();
+            Ebean.execute(() -> {
+                course1.setCredits(course.getCredits());
+                course1.setCrn(course.getCrn());
+                course1.setDepartment(course.getDepartment());
+                course1.setName(course.getName());
+                course1.update();
+                Ebean.createSqlUpdate("update course set code = :code where code = :id")
+                        .setParameter("code", course.getCode())
+                        .setParameter("id", oldId)
+                        .execute();
+            });
             return ok();
         }catch (Throwable e){
             return badRequest(e.getMessage());
         }
     }
-
 
 }

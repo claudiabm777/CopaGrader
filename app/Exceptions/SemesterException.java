@@ -9,7 +9,7 @@ import models.Semester;
 public class SemesterException extends Exception {
 
 
-    public SemesterException(String code,String cause) {
-        super("El semestre "+code+cause);
+    public SemesterException(String cause) {
+        super("El semestre"+cause);
     }
 }
