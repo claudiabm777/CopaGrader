@@ -155,6 +155,22 @@ public class CourseController extends Controller {
             return badRequest(e.getMessage());
         }
     }
+
+    @BodyParser.Of(BodyParser.Json.class)
+    public Result getASemesterFromCourse(){
+        try {
+            Long idSemester = Controller.request().body().asJson().findPath("idSemester").asLong();
+            String idCourse = Controller.request().body().asJson().findPath("idCourse").asText();
+            Course course = Course.find.byId(idCourse);
+            if (course == null) {
+                throw new CourseException(idCourse, ErrorMessage.NOT_CREATED);
+            }
+            Semester semester=course.getASemesterFromCourse(idSemester);
+            return ok(Json.toJson(semester));
+        }catch (Throwable e){
+            return badRequest(e.getMessage());
+        }
+    }
     /**
      * This method edits the basic information of a course.
      * @return Result

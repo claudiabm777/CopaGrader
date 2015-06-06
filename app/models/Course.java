@@ -126,7 +126,15 @@ public class Course extends Model{
         Semester semester=semesters.get(i);
         semester.delete();
     }
+    public Semester getASemesterFromCourse(Long idSemester)throws SemesterException{
+        Integer i=Semester.searchSemesterInAList(semesters,idSemester);
+        if(i==-1){
+            throw new SemesterException(ErrorMessage.NOT_CREATED);
+        }
+        Semester semester=semesters.get(i);
+        return semester;
 
+    }
     public static Integer searchCourseInAList(List<Course>courses,String idCourse){
         for(int i=0;i<courses.size();i++){
             Course course=courses.get(i);

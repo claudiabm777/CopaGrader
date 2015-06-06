@@ -16,6 +16,7 @@ POST    /courses/edit               controllers.CourseController.editCourse()
 POST    /courses/addSemester        controllers.CourseController.addSemesterToCourse()
 POST    /courses/deleteSemester     controllers.CourseController.deleteSemesterFromCourse()
 POST    /courses/getSemesters       controllers.CourseController.getSemestersFromCourse()
+POST    /courses/getASemester       controllers.CourseController.getASemesterFromCourse()
 #######################################################################################################################
 
 #######################################################################################################################
