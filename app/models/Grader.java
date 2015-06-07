@@ -23,8 +23,8 @@ public class Grader extends Model {
     private Long identityCard;
     private Long phone;
     private String email;
-    private String contrasenia;
-    private Boolean habilitado;
+    private String password;
+    private Boolean enable;
     private Integer cargo;
 
     @OneToMany(mappedBy="grader",cascade = CascadeType.ALL)
@@ -36,8 +36,8 @@ public class Grader extends Model {
     //--------------------------------------------------------------------------------------------------------------------------
     //Getters-------------------------------------------------------------------------------------------------------------------
     //--------------------------------------------------------------------------------------------------------------------------
-    public Boolean getHabilitado() {
-        return habilitado;
+    public Boolean getEnable() {
+        return enable;
     }
 
     public Integer getCargo() {
@@ -56,8 +56,8 @@ public class Grader extends Model {
         return phone;
     }
 
-    public String getContrasenia() {
-        return contrasenia;
+    public String getPassword() {
+        return password;
     }
 
     public String getEmail() {
@@ -79,16 +79,16 @@ public class Grader extends Model {
         this.cargo = cargo;
     }
 
-    public void setContrasenia(String contrasenia) {
-        this.contrasenia = contrasenia;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public void setEmail(String email) {
         this.email = email;
     }
 
-    public void setHabilitado(Boolean habilitado) {
-        this.habilitado = habilitado;
+    public void setEnable(Boolean enable) {
+        this.enable = enable;
     }
 
     public void setId(Long id) {

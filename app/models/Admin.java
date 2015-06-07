@@ -1,8 +1,10 @@
 package models;
 
 import com.avaje.ebean.Model;
+import com.fasterxml.jackson.databind.JsonNode;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -15,52 +17,56 @@ public class Admin extends Model{
     //Attributes----------------------------------------------------------------------------------------------------------------
     //--------------------------------------------------------------------------------------------------------------------------
     @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
-    private Long id;
+    private String email;
 
     private String names;
     private String lastNames;
-    private Long identityCard;
-    private Long phone;
-    private String email;
-    private String contrasenia;
-    private Boolean habilitado;
+    private String identityCard;
+    private String phone;
+    private String password;
+    private Boolean enable;
 
     @ManyToMany(cascade = CascadeType.ALL)
     private List<Course>courses;
 
-    @ManyToOne
-    private Activity activity;
-
-    public static Finder<Long,Admin> find = new Finder<Long,Admin>(
-            Long.class, Admin.class
+    public static Finder<String,Admin> find = new Finder<String,Admin>(
+            String.class, Admin.class
     );
 
     //--------------------------------------------------------------------------------------------------------------------------
+    //Constructor---------------------------------------------------------------------------------------------------------------
+    //--------------------------------------------------------------------------------------------------------------------------
+    public Admin(String email, String names, String lastNames,String identityCard,String phone,String password, Boolean enable){
+        this.email=email;
+        this.names=names;
+        this.lastNames=lastNames;
+        this.identityCard=identityCard;
+        this.phone=phone;
+        this.password=password;
+        this.enable=enable;
+        this.courses=new ArrayList<Course>();
+    }
+    //--------------------------------------------------------------------------------------------------------------------------
     //Getters-------------------------------------------------------------------------------------------------------------------
     //--------------------------------------------------------------------------------------------------------------------------
-    public Boolean getHabilitado() {
-        return habilitado;
+    public Boolean getEnable() {
+        return enable;
     }
 
     public String getLastNames() {
         return lastNames;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public Long getIdentityCard() {
+    public String getIdentityCard() {
         return identityCard;
     }
 
-    public Long getPhone() {
+    public String getPhone() {
         return phone;
     }
 
-    public String getContrasenia() {
-        return contrasenia;
+    public String getPassword() {
+        return password;
     }
 
     public String getEmail() {
@@ -74,8 +80,8 @@ public class Admin extends Model{
     //--------------------------------------------------------------------------------------------------------------------------
     //Setters-------------------------------------------------------------------------------------------------------------------
     //--------------------------------------------------------------------------------------------------------------------------
-    public void setContrasenia(String contrasenia) {
-        this.contrasenia = contrasenia;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public void setLastNames(String lastNames) {
@@ -86,15 +92,11 @@ public class Admin extends Model{
         this.email = email;
     }
 
-    public void setHabilitado(Boolean habilitado) {
-        this.habilitado = habilitado;
+    public void setEnable(Boolean enable) {
+        this.enable = enable;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public void setIdentityCard(Long identityCard) {
+    public void setIdentityCard(String identityCard) {
         this.identityCard = identityCard;
     }
 
@@ -102,7 +104,22 @@ public class Admin extends Model{
         this.names = names;
     }
 
-    public void setPhone(Long phone) {
+    public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    //--------------------------------------------------------------------------------------------------------------------------
+    //Methods-------------------------------------------------------------------------------------------------------------------
+    //--------------------------------------------------------------------------------------------------------------------------
+    public static Admin transformJson(JsonNode j){
+        String names = j.findPath("names").asText();
+        String lastNames = j.findPath("lastNames").asText();
+        String identityCard=j.findPath("identityCard").asText();
+        String phone=j.findPath("phone").asText();
+        String email = j.findPath("email").asText();
+        String password = j.findPath("password").asText();
+        Boolean enable=j.findPath("enable").asBoolean();
+        Admin admin = new Admin(names, lastNames, identityCard,phone,email,password,enable);
+        return admin;
     }
 }

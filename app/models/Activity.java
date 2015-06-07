@@ -47,7 +47,7 @@ public class Activity extends Model {
     //--------------------------------------------------------------------------------------------------------------------------
     //Constructor---------------------------------------------------------------------------------------------------------------
     //--------------------------------------------------------------------------------------------------------------------------
-    public Activity(String name, Date deadline, Date creationDate, Semester semester,Course course){
+    public Activity(String name, Date deadline, Date creationDate, Semester semester){
         this.name=name;
         this.deadline=deadline;
         this.creationDate=creationDate;
@@ -132,13 +132,13 @@ public class Activity extends Model {
     /*
     Add an admin in charge
      */
-    public void addAdminInCharge(Long idAdmin) throws Exception {
+    public void addAdminInCharge(String idAdmin) throws Exception {
         Admin newAdmin=Admin.find.byId(idAdmin);
         if(newAdmin==null){
             throw new Exception("El asistente a cargo que esta tratando de agregar no existe.");
         }
         for(int i=0;i<adminsInCharge.size();i++){
-            if(adminsInCharge.get(i).getId()==newAdmin.getId())
+            if((adminsInCharge.get(i).getEmail()).equals(newAdmin.getEmail()))
             {
                 throw new Exception("El asistente a cargo que se trata de agregar ya había sido agregado en esta actividad.");
             }

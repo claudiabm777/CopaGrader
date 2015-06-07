@@ -4,8 +4,6 @@ import com.avaje.ebean.Model;
 import com.fasterxml.jackson.databind.JsonNode;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 /**
@@ -17,15 +15,13 @@ public class SuperAdmin extends Model {
     //--------------------------------------------------------------------------------------------------------------------------
     //Attributes----------------------------------------------------------------------------------------------------------------
     //--------------------------------------------------------------------------------------------------------------------------
-
-
     private String names;
     private String lastNames;
     private String identityCard;
     private String phone;
     @Id
     private String email;
-    private String contrasenia;
+    private String password;
 
     public static Finder<String,SuperAdmin> find = new Finder<String,SuperAdmin>(
             String.class, SuperAdmin.class
@@ -34,14 +30,13 @@ public class SuperAdmin extends Model {
     //--------------------------------------------------------------------------------------------------------------------------
     //Constructor---------------------------------------------------------------------------------------------------------------
     //--------------------------------------------------------------------------------------------------------------------------
-
-    public SuperAdmin(String names, String lastNames, String identityCard, String phone, String email, String contrasenia){
+    public SuperAdmin(String names, String lastNames, String identityCard, String phone, String email, String password){
         this.names=names;
         this.lastNames=lastNames;
         this.identityCard=identityCard;
         this.phone=phone;
         this.email=email;
-        this.contrasenia=contrasenia;
+        this.password =password;
     }
     //--------------------------------------------------------------------------------------------------------------------------
     //Getters-------------------------------------------------------------------------------------------------------------------
@@ -54,8 +49,8 @@ public class SuperAdmin extends Model {
         return phone;
     }
 
-    public String getContrasenia() {
-        return contrasenia;
+    public String getPassword() {
+        return password;
     }
 
     public String getEmail() {
@@ -73,8 +68,8 @@ public class SuperAdmin extends Model {
     //--------------------------------------------------------------------------------------------------------------------------
     //Setters-------------------------------------------------------------------------------------------------------------------
     //--------------------------------------------------------------------------------------------------------------------------
-    public void setContrasenia(String contrasenia) {
-        this.contrasenia = contrasenia;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public void setEmail(String email) {
@@ -108,8 +103,8 @@ public class SuperAdmin extends Model {
         String identityCard=j.findPath("identityCard").asText();
         String phone=j.findPath("phone").asText();
         String email = j.findPath("email").asText();
-        String contrasenia = j.findPath("contrasenia").asText();
-        SuperAdmin superAdmin = new SuperAdmin(names, lastNames, identityCard,phone,email,contrasenia);
+        String password = j.findPath("password").asText();
+        SuperAdmin superAdmin = new SuperAdmin(names, lastNames, identityCard,phone,email,password);
         return superAdmin;
     }
 
