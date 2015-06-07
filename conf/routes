@@ -21,7 +21,12 @@ POST    /courses/getASemester       controllers.CourseController.getASemesterFro
 # SEMESTERS: /semesters
 GET     /semesters/allSemesters     controllers.SemesterController.getSemesters()
 #######################################################################################################################
-
+# SUPER_ADMIN: /superAdmin
+GET     /superAdmin/allSuperA       controllers.SuperAdminController.getSuperAdmins()
+POST    /superAdmin/create          controllers.SuperAdminController.createSuperAdmin()
+POST    /superAdmin/aSuperA         controllers.SuperAdminController.getASuperAdminId()
+POST    /superAdmin/edit            controllers.SuperAdminController.editSuperAdmin()
+POST    /superAdmin/delete          controllers.SuperAdminController.deleteSuperAdminId()
 #######################################################################################################################
 
 #######################################################################################################################

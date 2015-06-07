@@ -1,6 +1,7 @@
 package models;
 
 import com.avaje.ebean.Model;
+import com.fasterxml.jackson.databind.JsonNode;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,32 +17,38 @@ public class SuperAdmin extends Model {
     //--------------------------------------------------------------------------------------------------------------------------
     //Attributes----------------------------------------------------------------------------------------------------------------
     //--------------------------------------------------------------------------------------------------------------------------
-    @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
-    private Long id;
+
 
     private String names;
     private String lastNames;
-    private Long identityCard;
-    private Long phone;
+    private String identityCard;
+    private String phone;
+    @Id
     private String email;
     private String contrasenia;
 
-    public static Finder<Long,SuperAdmin> find = new Finder<Long,SuperAdmin>(
-            Long.class, SuperAdmin.class
+    public static Finder<String,SuperAdmin> find = new Finder<String,SuperAdmin>(
+            String.class, SuperAdmin.class
     );
+
+    public SuperAdmin(String names, String lastNames, String identityCard, String phone, String email, String contrasenia){
+        this.names=names;
+        this.lastNames=lastNames;
+        this.identityCard=identityCard;
+        this.phone=phone;
+        this.email=email;
+        this.contrasenia=contrasenia;
+    }
     //--------------------------------------------------------------------------------------------------------------------------
     //Getters-------------------------------------------------------------------------------------------------------------------
     //--------------------------------------------------------------------------------------------------------------------------
-    public Long getId() {
-        return id;
-    }
 
-    public Long getIdentityCard() {
+
+    public String getIdentityCard() {
         return identityCard;
     }
 
-    public Long getPhone() {
+    public String getPhone() {
         return phone;
     }
 
@@ -72,11 +79,7 @@ public class SuperAdmin extends Model {
         this.email = email;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public void setIdentityCard(Long identityCard) {
+    public void setIdentityCard(String identityCard) {
         this.identityCard = identityCard;
     }
 
@@ -88,8 +91,21 @@ public class SuperAdmin extends Model {
         this.names = names;
     }
 
-    public void setPhone(Long phone) {
+    public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+
+
+    public static SuperAdmin transformJson(JsonNode j){
+        String names = j.findPath("names").asText();
+        String lastNames = j.findPath("lastNames").asText();
+        String identityCard=j.findPath("identityCard").asText();
+        String phone=j.findPath("phone").asText();
+        String email = j.findPath("email").asText();
+        String contrasenia = j.findPath("contrasenia").asText();
+        SuperAdmin superAdmin = new SuperAdmin(names, lastNames, identityCard,phone,email,contrasenia);
+        return superAdmin;
     }
 
 }

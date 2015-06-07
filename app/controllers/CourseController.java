@@ -2,7 +2,6 @@ package controllers;
 
 import Exceptions.CourseException;
 import Exceptions.ErrorMessage;
-import Exceptions.SemesterException;
 import com.avaje.ebean.Ebean;
 import com.fasterxml.jackson.databind.JsonNode;
 import models.Course;
@@ -82,6 +81,9 @@ public class CourseController extends Controller {
         try {
             String idCourse = Controller.request().body().asJson().findPath("idCourse").asText();
             Course course=Course.find.byId(idCourse);
+            if (course==null){
+                throw new CourseException(idCourse,ErrorMessage.NOT_CREATED);
+            }
             return ok(Json.toJson(course));
         }catch (Throwable e){
             return badRequest(e.getMessage());
@@ -155,6 +157,10 @@ public class CourseController extends Controller {
         }
     }
 
+    /**
+     * This method gets a semester from a course.
+     * @return
+     */
     @BodyParser.Of(BodyParser.Json.class)
     public Result getASemesterFromCourse(){
         try {
@@ -185,7 +191,7 @@ public class CourseController extends Controller {
                 throw new CourseException(course.getCode(), ErrorMessage.NOT_CREATED);
             }
             if((!course.getCode().equals(oldId))&&(Course.find.byId(course.getCode())!=null)){
-                throw new CourseException(CourseException.CODIGO_REPETIDO);
+                throw new CourseException(CourseException.CODE_REPEATED);
             }
             Ebean.execute(() -> {
                 course1.setCredits(course.getCredits());

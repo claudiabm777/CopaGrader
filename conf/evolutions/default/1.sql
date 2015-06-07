@@ -122,14 +122,13 @@ create table student (
 ;
 
 create table super_admin (
-  id                        bigint auto_increment not null,
+  email                     varchar(255) not null,
   names                     varchar(255),
   last_names                varchar(255),
-  identity_card             bigint,
-  phone                     bigint,
-  email                     varchar(255),
+  identity_card             varchar(255),
+  phone                     varchar(255),
   contrasenia               varchar(255),
-  constraint pk_super_admin primary key (id))
+  constraint pk_super_admin primary key (email))
 ;
 
 create table task (
@@ -172,6 +171,8 @@ create table team_student (
   constraint pk_team_student primary key (team_id, student_id))
 ;
 create sequence course_seq;
+
+create sequence super_admin_seq;
 
 alter table activity add constraint fk_activity_semester_1 foreign key (semester_id) references semester (id) on delete restrict on update restrict;
 create index ix_activity_semester_1 on activity (semester_id);
@@ -269,4 +270,6 @@ drop table if exists team_student;
 SET REFERENTIAL_INTEGRITY TRUE;
 
 drop sequence if exists course_seq;
+
+drop sequence if exists super_admin_seq;
 
