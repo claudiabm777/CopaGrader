@@ -86,7 +86,6 @@ public class CourseController extends Controller {
         }catch (Throwable e){
             return badRequest(e.getMessage());
         }
-
     }
 
     /**
@@ -184,6 +183,9 @@ public class CourseController extends Controller {
             Course course1 = Course.find.byId(oldId);
             if (course1 == null) {
                 throw new CourseException(course.getCode(), ErrorMessage.NOT_CREATED);
+            }
+            if((!course.getCode().equals(oldId))&&(Course.find.byId(course.getCode())!=null)){
+                throw new CourseException(CourseException.CODIGO_REPETIDO);
             }
             Ebean.execute(() -> {
                 course1.setCredits(course.getCredits());

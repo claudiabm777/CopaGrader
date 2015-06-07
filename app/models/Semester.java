@@ -69,9 +69,9 @@ public class Semester extends Model {
         return activities;
     }
 
-    //public Course getCourse() {
-      //  return course;
-    //}
+    public Course getCourse() {
+        return course;
+    }
 
     public Long getId() {
         return id;
