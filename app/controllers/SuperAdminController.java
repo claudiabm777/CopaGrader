@@ -18,7 +18,10 @@ import java.util.List;
  * Created by Asus on 04/06/2015.
  */
 public class SuperAdminController extends Controller {
-
+    /**
+     * This method creates a super admin in the system.
+     * @return
+     */
     @BodyParser.Of(BodyParser.Json.class)
     public Result createSuperAdmin(){
         try {
@@ -34,6 +37,11 @@ public class SuperAdminController extends Controller {
             return badRequest(e.getMessage());
         }
     }
+
+    /**
+     * This method gets all the super admins in the system.
+     * @return
+     */
     public Result getSuperAdmins(){
         try {
             List<SuperAdmin> superAdmins = SuperAdmin.find.all();
@@ -42,6 +50,11 @@ public class SuperAdminController extends Controller {
             return badRequest(e.getMessage());
         }
     }
+
+    /**
+     * This method get a super admin by id (email).
+     * @return
+     */
     @BodyParser.Of(BodyParser.Json.class)
     public Result getASuperAdminId(){
         try {
@@ -56,6 +69,10 @@ public class SuperAdminController extends Controller {
         }
     }
 
+    /**
+     * This method edits the information of a super admin.
+     * @return
+     */
     @BodyParser.Of(BodyParser.Json.class)
     public Result editSuperAdmin(){
         try {
@@ -85,6 +102,11 @@ public class SuperAdminController extends Controller {
             return badRequest(e.getMessage());
         }
     }
+
+    /**
+     * This method deletes a super admin by id.
+     * @return
+     */
     @BodyParser.Of(BodyParser.Json.class)
     public Result deleteSuperAdminId(){
         try {
