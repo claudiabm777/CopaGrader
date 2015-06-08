@@ -28,6 +28,12 @@ POST    /superAdmin/aSuperA         controllers.SuperAdminController.getASuperAd
 POST    /superAdmin/edit            controllers.SuperAdminController.editSuperAdmin()
 POST    /superAdmin/delete          controllers.SuperAdminController.deleteSuperAdminId()
 #######################################################################################################################
+# ADMIN: /admin
+POST    /admin/create               controllers.AdminController.createAdmin()
+GET     /admin/allAdmins            controllers.AdminController.getAdmins()
+POST    /admin/anAdmin              controllers.AdminController.getAnAdminId()
+POST    /admin/edit                 controllers.AdminController.editAdmin()
+POST    /admin/delete               controllers.AdminController.deleteAdminId()
 
 #######################################################################################################################
 

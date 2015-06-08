@@ -13,16 +13,14 @@ create table activity (
 ;
 
 create table admin (
-  id                        bigint auto_increment not null,
+  email                     varchar(255) not null,
   names                     varchar(255),
   last_names                varchar(255),
-  identity_card             bigint,
-  phone                     bigint,
-  email                     varchar(255),
-  contrasenia               varchar(255),
-  habilitado                boolean,
-  activity_id               bigint,
-  constraint pk_admin primary key (id))
+  identity_card             varchar(255),
+  phone                     varchar(255),
+  password                  varchar(255),
+  enable                    boolean,
+  constraint pk_admin primary key (email))
 ;
 
 create table bullet (
@@ -35,9 +33,9 @@ create table bullet (
 create table claim (
   id                        bigint auto_increment not null,
   creation_date             timestamp,
-  processor_id              bigint,
+  processor_email           varchar(255),
   new_option_id             bigint,
-  constraint uq_claim_processor_id unique (processor_id),
+  constraint uq_claim_processor_email unique (processor_email),
   constraint uq_claim_new_option_id unique (new_option_id),
   constraint pk_claim primary key (id))
 ;
@@ -67,8 +65,8 @@ create table grader (
   identity_card             bigint,
   phone                     bigint,
   email                     varchar(255),
-  contrasenia               varchar(255),
-  habilitado                boolean,
+  password                  varchar(255),
+  enable                    boolean,
   cargo                     integer,
   constraint pk_grader primary key (id))
 ;
@@ -127,7 +125,7 @@ create table super_admin (
   last_names                varchar(255),
   identity_card             varchar(255),
   phone                     varchar(255),
-  contrasenia               varchar(255),
+  password                  varchar(255),
   constraint pk_super_admin primary key (email))
 ;
 
@@ -149,14 +147,14 @@ create table team (
 
 create table activity_admin (
   activity_id                    bigint not null,
-  admin_id                       bigint not null,
-  constraint pk_activity_admin primary key (activity_id, admin_id))
+  admin_email                    varchar(255) not null,
+  constraint pk_activity_admin primary key (activity_id, admin_email))
 ;
 
 create table admin_course (
-  admin_id                       bigint not null,
+  admin_email                    varchar(255) not null,
   course_code                    varchar(255) not null,
-  constraint pk_admin_course primary key (admin_id, course_code))
+  constraint pk_admin_course primary key (admin_email, course_code))
 ;
 
 create table semester_grader (
@@ -170,50 +168,50 @@ create table team_student (
   student_id                     bigint not null,
   constraint pk_team_student primary key (team_id, student_id))
 ;
+create sequence admin_seq;
+
 create sequence course_seq;
 
 create sequence super_admin_seq;
 
 alter table activity add constraint fk_activity_semester_1 foreign key (semester_id) references semester (id) on delete restrict on update restrict;
 create index ix_activity_semester_1 on activity (semester_id);
-alter table admin add constraint fk_admin_activity_2 foreign key (activity_id) references activity (id) on delete restrict on update restrict;
-create index ix_admin_activity_2 on admin (activity_id);
-alter table bullet add constraint fk_bullet_task_3 foreign key (task_id) references task (id) on delete restrict on update restrict;
-create index ix_bullet_task_3 on bullet (task_id);
-alter table claim add constraint fk_claim_processor_4 foreign key (processor_id) references admin (id) on delete restrict on update restrict;
-create index ix_claim_processor_4 on claim (processor_id);
-alter table claim add constraint fk_claim_newOption_5 foreign key (new_option_id) references option (id) on delete restrict on update restrict;
-create index ix_claim_newOption_5 on claim (new_option_id);
-alter table criterion add constraint fk_criterion_claim_6 foreign key (claim_id) references claim (id) on delete restrict on update restrict;
-create index ix_criterion_claim_6 on criterion (claim_id);
-alter table criterion add constraint fk_criterion_majorCriterion_7 foreign key (major_criterion_id) references major_criterion (id) on delete restrict on update restrict;
-create index ix_criterion_majorCriterion_7 on criterion (major_criterion_id);
-alter table major_criterion add constraint fk_major_criterion_bullet_8 foreign key (bullet_id) references bullet (id) on delete restrict on update restrict;
-create index ix_major_criterion_bullet_8 on major_criterion (bullet_id);
-alter table option add constraint fk_option_criterion_9 foreign key (criterion_id) references criterion (id) on delete restrict on update restrict;
-create index ix_option_criterion_9 on option (criterion_id);
-alter table option_request add constraint fk_option_request_postulator_10 foreign key (postulator_id) references grader (id) on delete restrict on update restrict;
-create index ix_option_request_postulator_10 on option_request (postulator_id);
-alter table option_request add constraint fk_option_request_criterion_11 foreign key (criterion_id) references criterion (id) on delete restrict on update restrict;
-create index ix_option_request_criterion_11 on option_request (criterion_id);
-alter table semester add constraint fk_semester_course_12 foreign key (course_code) references course (code) on delete restrict on update restrict;
-create index ix_semester_course_12 on semester (course_code);
-alter table student add constraint fk_student_semester_13 foreign key (semester_id) references semester (id) on delete restrict on update restrict;
-create index ix_student_semester_13 on student (semester_id);
-alter table task add constraint fk_task_activity_14 foreign key (activity_id) references activity (id) on delete restrict on update restrict;
-create index ix_task_activity_14 on task (activity_id);
-alter table team add constraint fk_team_activity_15 foreign key (activity_id) references activity (id) on delete restrict on update restrict;
-create index ix_team_activity_15 on team (activity_id);
-alter table team add constraint fk_team_grader_16 foreign key (grader_id) references grader (id) on delete restrict on update restrict;
-create index ix_team_grader_16 on team (grader_id);
+alter table bullet add constraint fk_bullet_task_2 foreign key (task_id) references task (id) on delete restrict on update restrict;
+create index ix_bullet_task_2 on bullet (task_id);
+alter table claim add constraint fk_claim_processor_3 foreign key (processor_email) references admin (email) on delete restrict on update restrict;
+create index ix_claim_processor_3 on claim (processor_email);
+alter table claim add constraint fk_claim_newOption_4 foreign key (new_option_id) references option (id) on delete restrict on update restrict;
+create index ix_claim_newOption_4 on claim (new_option_id);
+alter table criterion add constraint fk_criterion_claim_5 foreign key (claim_id) references claim (id) on delete restrict on update restrict;
+create index ix_criterion_claim_5 on criterion (claim_id);
+alter table criterion add constraint fk_criterion_majorCriterion_6 foreign key (major_criterion_id) references major_criterion (id) on delete restrict on update restrict;
+create index ix_criterion_majorCriterion_6 on criterion (major_criterion_id);
+alter table major_criterion add constraint fk_major_criterion_bullet_7 foreign key (bullet_id) references bullet (id) on delete restrict on update restrict;
+create index ix_major_criterion_bullet_7 on major_criterion (bullet_id);
+alter table option add constraint fk_option_criterion_8 foreign key (criterion_id) references criterion (id) on delete restrict on update restrict;
+create index ix_option_criterion_8 on option (criterion_id);
+alter table option_request add constraint fk_option_request_postulator_9 foreign key (postulator_id) references grader (id) on delete restrict on update restrict;
+create index ix_option_request_postulator_9 on option_request (postulator_id);
+alter table option_request add constraint fk_option_request_criterion_10 foreign key (criterion_id) references criterion (id) on delete restrict on update restrict;
+create index ix_option_request_criterion_10 on option_request (criterion_id);
+alter table semester add constraint fk_semester_course_11 foreign key (course_code) references course (code) on delete restrict on update restrict;
+create index ix_semester_course_11 on semester (course_code);
+alter table student add constraint fk_student_semester_12 foreign key (semester_id) references semester (id) on delete restrict on update restrict;
+create index ix_student_semester_12 on student (semester_id);
+alter table task add constraint fk_task_activity_13 foreign key (activity_id) references activity (id) on delete restrict on update restrict;
+create index ix_task_activity_13 on task (activity_id);
+alter table team add constraint fk_team_activity_14 foreign key (activity_id) references activity (id) on delete restrict on update restrict;
+create index ix_team_activity_14 on team (activity_id);
+alter table team add constraint fk_team_grader_15 foreign key (grader_id) references grader (id) on delete restrict on update restrict;
+create index ix_team_grader_15 on team (grader_id);
 
 
 
 alter table activity_admin add constraint fk_activity_admin_activity_01 foreign key (activity_id) references activity (id) on delete restrict on update restrict;
 
-alter table activity_admin add constraint fk_activity_admin_admin_02 foreign key (admin_id) references admin (id) on delete restrict on update restrict;
+alter table activity_admin add constraint fk_activity_admin_admin_02 foreign key (admin_email) references admin (email) on delete restrict on update restrict;
 
-alter table admin_course add constraint fk_admin_course_admin_01 foreign key (admin_id) references admin (id) on delete restrict on update restrict;
+alter table admin_course add constraint fk_admin_course_admin_01 foreign key (admin_email) references admin (email) on delete restrict on update restrict;
 
 alter table admin_course add constraint fk_admin_course_course_02 foreign key (course_code) references course (code) on delete restrict on update restrict;
 
@@ -268,6 +266,8 @@ drop table if exists team;
 drop table if exists team_student;
 
 SET REFERENTIAL_INTEGRITY TRUE;
+
+drop sequence if exists admin_seq;
 
 drop sequence if exists course_seq;
 
