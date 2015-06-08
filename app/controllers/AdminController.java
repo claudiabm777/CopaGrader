@@ -67,9 +67,10 @@ public class AdminController extends  Controller {
         }
 
     }
+
     /**
-     * This method edits the information of an Admin.
-     * This method does not permit to change if an admin is enable or not.
+     *
+     * @return
      */
     public Result editAdmin(){
         try {
@@ -100,6 +101,10 @@ public class AdminController extends  Controller {
         }
     }
 
+    /**
+     *
+     * @return
+     */
     public Result deleteAdminId(){
         try {
             String idAdmin = Controller.request().body().asJson().findPath("idAdmin").asText();
@@ -114,4 +119,6 @@ public class AdminController extends  Controller {
         }
 
     }
+
+
 }

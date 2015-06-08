@@ -25,8 +25,6 @@ public class Student extends Model {
     private Integer magisSection;
     private Integer complSection;
 
-    @ManyToOne
-    private Semester semester;
 
     public static Finder<Long,Student> find = new Finder<Long,Student>(
             Long.class, Student.class

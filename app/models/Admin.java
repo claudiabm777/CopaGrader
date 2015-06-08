@@ -1,5 +1,6 @@
 package models;
 
+import Exceptions.AdminException;
 import com.avaje.ebean.Model;
 import com.fasterxml.jackson.databind.JsonNode;
 
@@ -121,5 +122,14 @@ public class Admin extends Model{
         Boolean enable=j.findPath("enable").asBoolean();
         Admin admin = new Admin(names, lastNames, identityCard,phone,email,password,enable);
         return admin;
+    }
+
+    public void addCourseAdmin(Course course)throws Exception{
+        Integer i=Course.searchCourseInAList(courses,course.getCode());
+        if(i!=-1){
+            throw new AdminException(course,this.email);
+        }
+        courses.add(course);
+
     }
 }

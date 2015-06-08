@@ -17,6 +17,7 @@ POST    /courses/addSemester        controllers.CourseController.addSemesterToCo
 POST    /courses/deleteSemester     controllers.CourseController.deleteSemesterFromCourse()
 POST    /courses/getSemesters       controllers.CourseController.getSemestersFromCourse()
 POST    /courses/getASemester       controllers.CourseController.getASemesterFromCourse()
+POST    /courses/editSemester       controllers.CourseController.editSemesterFromCourse()
 #######################################################################################################################
 # SEMESTERS: /semesters
 GET     /semesters/allSemesters     controllers.SemesterController.getSemesters()
@@ -34,7 +35,6 @@ GET     /admin/allAdmins            controllers.AdminController.getAdmins()
 POST    /admin/anAdmin              controllers.AdminController.getAnAdminId()
 POST    /admin/edit                 controllers.AdminController.editAdmin()
 POST    /admin/delete               controllers.AdminController.deleteAdminId()
-
 #######################################################################################################################
 
 #######################################################################################################################

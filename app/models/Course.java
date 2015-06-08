@@ -135,6 +135,15 @@ public class Course extends Model{
         return semester;
 
     }
+    public void editSemesterFromCourse(Long idSemester,String newPeriod)throws SemesterException{
+        Integer i=Semester.searchSemesterInAList(semesters,idSemester);
+        if(i==-1){
+            throw new SemesterException(ErrorMessage.NOT_CREATED);
+        }
+        Semester semester=semesters.get(i);
+        semester.setPeriod(newPeriod);
+        semester.update();
+    }
     public static Integer searchCourseInAList(List<Course>courses,String idCourse){
         for(int i=0;i<courses.size();i++){
             Course course=courses.get(i);

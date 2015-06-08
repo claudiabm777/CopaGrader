@@ -25,4 +25,6 @@ public class SemesterController extends Controller {
             return badRequest(e.getMessage());
         }
     }
+
+
 }

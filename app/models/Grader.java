@@ -27,7 +27,7 @@ public class Grader extends Model {
     private Boolean enable;
     private Integer cargo;
 
-    @OneToMany(mappedBy="grader",cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL)
     private List<Team>teams;
 
     public static Finder<Long,Grader> find = new Finder<Long,Grader>(

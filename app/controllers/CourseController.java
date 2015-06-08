@@ -105,11 +105,32 @@ public class CourseController extends Controller {
             if(course==null){
                 throw new CourseException(idCourse,ErrorMessage.NOT_CREATED);
             }
-            semester.setCourse(course);
             course.addSemesterToCourse(semester);
             course.save();
             return ok();
         }catch (Throwable e){
+            return badRequest(e.getMessage());
+        }
+    }
+
+    /**
+     * This method edits just the period of a semester.
+     * The Json has idSemester, idCourse and the newPeriod.
+     * @return
+     */
+    public Result editSemesterFromCourse(){
+        try {
+            Long idSemester = Controller.request().body().asJson().findPath("idSemester").asLong();
+            String idCourse = Controller.request().body().asJson().findPath("idCourse").asText();
+            String newPeriod = Controller.request().body().asJson().findPath("newPeriod").asText();
+            Course course = Course.find.byId(idCourse);
+            if (course == null) {
+                throw new CourseException(idCourse, ErrorMessage.NOT_CREATED);
+            }
+            course.editSemesterFromCourse(idSemester,newPeriod);
+            course.save();
+            return ok();
+        }catch(Throwable e){
             return badRequest(e.getMessage());
         }
     }

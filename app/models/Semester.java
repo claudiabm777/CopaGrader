@@ -27,18 +27,16 @@ public class Semester extends Model {
     @ManyToMany(cascade = CascadeType.ALL)
     private List<Grader>graders;
 
-    @OneToMany(mappedBy="semester",cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL)
     private List<Student>students;
 
-    @OneToMany(mappedBy="semester",cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL)
     private List<Activity>activities;
 
     public static Finder<Long,Semester> find = new Finder<Long,Semester>(
             Long.class, Semester.class
     );
 
-    @ManyToOne
-    private Course course;
 
     //--------------------------------------------------------------------------------------------------------------------------
     //Constructor---------------------------------------------------------------------------------------------------------------
@@ -69,10 +67,6 @@ public class Semester extends Model {
         return activities;
     }
 
-    public Course getCourse() {
-        return course;
-    }
-
     public Long getId() {
         return id;
     }
@@ -96,11 +90,7 @@ public class Semester extends Model {
         this.students = students;
     }
 
-    public void setCourse(Course course) {
-        this.course = course;
-    }
-
-    public void setId(Long id) {
+        public void setId(Long id) {
         this.id = id;
     }
     //--------------------------------------------------------------------------------------------------------------------------

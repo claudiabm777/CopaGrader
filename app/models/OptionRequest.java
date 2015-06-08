@@ -30,8 +30,6 @@ public class OptionRequest extends Model {
     @OneToOne(cascade = CascadeType.ALL)
     private Grader postulator;
 
-    @ManyToOne
-    private Criterion criterion;
 
     public static Finder<Long,OptionRequest> find = new Finder<Long,OptionRequest>(
             Long.class, OptionRequest.class

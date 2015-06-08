@@ -1,13 +1,13 @@
 package Exceptions;
 
 import models.Admin;
+import models.Course;
 
 /**
  * Created by Asus on 07/06/2015.
  */
 public class AdminException extends Exception {
 
-    public final static String NOT_FOUND_EMAIL="No se encontro el administrador con el email especificado.";
     public final static String CODE_REPEATED ="Ya existe un administrador con este mismo email y no deben estar repeidos. Por favor ingrese un nuevo email para el curso";
 
     public AdminException(Admin admin,String cause) {
@@ -20,6 +20,10 @@ public class AdminException extends Exception {
 
     public AdminException(String message) {
         super(message);
+    }
+
+    public AdminException(Course course,String idAdmin){
+        super("El administrador con email "+idAdmin+" ya existe en el curso "+course.getName()+" con código "+course.getCode()+".");
     }
 
 }

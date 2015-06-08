@@ -22,12 +22,6 @@ public class Team extends Model {
     @ManyToMany(cascade = CascadeType.ALL)
     private List<Student>students;
 
-    @ManyToOne
-    private Activity activity;
-
-    @ManyToOne
-    private Grader grader;
-
     public static Finder<Long,Team> find = new Finder<Long,Team>(
             Long.class, Team.class
     );

@@ -20,7 +20,7 @@ public class Task extends Model {
 
     private String name;
 
-    @OneToMany(mappedBy="task",cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL)
     private List<Bullet>bullets;
 
     public static Finder<Long,Task> find = new Finder<Long,Task>(
@@ -37,8 +37,7 @@ public class Task extends Model {
         return name;
     }
 
-    @ManyToOne
-    private Activity activity;
+
     //--------------------------------------------------------------------------------------------------------------------------
     //Setters-------------------------------------------------------------------------------------------------------------------
     //--------------------------------------------------------------------------------------------------------------------------

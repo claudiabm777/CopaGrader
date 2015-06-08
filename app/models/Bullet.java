@@ -21,11 +21,10 @@ public class Bullet extends Model {
     @Lob
     private String description;
 
-    @OneToMany(mappedBy="bullet",cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL)
     private List<MajorCriterion>majorCriterions;
 
-    @ManyToOne
-    private Task task;
+
 
     public static Finder<Long,Bullet> find = new Finder<Long,Bullet>(
             Long.class, Bullet.class

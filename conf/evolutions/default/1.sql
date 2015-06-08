@@ -5,10 +5,10 @@
 
 create table activity (
   id                        bigint auto_increment not null,
+  semester_id               bigint not null,
   name                      varchar(255),
   deadline                  timestamp,
   creation_date             timestamp,
-  semester_id               bigint,
   constraint pk_activity primary key (id))
 ;
 
@@ -25,8 +25,8 @@ create table admin (
 
 create table bullet (
   id                        bigint auto_increment not null,
+  task_id                   bigint not null,
   description               clob,
-  task_id                   bigint,
   constraint pk_bullet primary key (id))
 ;
 
@@ -51,9 +51,9 @@ create table course (
 
 create table criterion (
   id                        bigint auto_increment not null,
+  major_criterion_id        bigint not null,
   description               clob,
   claim_id                  bigint,
-  major_criterion_id        bigint,
   constraint uq_criterion_claim_id unique (claim_id),
   constraint pk_criterion primary key (id))
 ;
@@ -73,41 +73,42 @@ create table grader (
 
 create table major_criterion (
   id                        bigint auto_increment not null,
+  bullet_id                 bigint not null,
   description               clob,
-  bullet_id                 bigint,
   constraint pk_major_criterion primary key (id))
 ;
 
 create table option (
   id                        bigint auto_increment not null,
+  criterion_id              bigint not null,
   description               clob,
   score                     double,
   is_selected               boolean,
   is_penalty                boolean,
-  criterion_id              bigint,
   constraint pk_option primary key (id))
 ;
 
 create table option_request (
   id                        bigint auto_increment not null,
+  criterion_id              bigint not null,
   description               clob,
   is_penalty                boolean,
   creation_date             timestamp,
   postulator_id             bigint,
-  criterion_id              bigint,
   constraint uq_option_request_postulator_id unique (postulator_id),
   constraint pk_option_request primary key (id))
 ;
 
 create table semester (
   id                        bigint auto_increment not null,
+  course_code               varchar(255) not null,
   period                    varchar(255),
-  course_code               varchar(255),
   constraint pk_semester primary key (id))
 ;
 
 create table student (
   id                        bigint auto_increment not null,
+  semester_id               bigint not null,
   names                     varchar(255),
   last_names                varchar(255),
   code                      integer,
@@ -115,7 +116,6 @@ create table student (
   email                     varchar(255),
   magis_section             integer,
   compl_section             integer,
-  semester_id               bigint,
   constraint pk_student primary key (id))
 ;
 
@@ -131,16 +131,15 @@ create table super_admin (
 
 create table task (
   id                        bigint auto_increment not null,
+  activity_id               bigint not null,
   name                      varchar(255),
-  activity_id               bigint,
   constraint pk_task primary key (id))
 ;
 
 create table team (
   id                        bigint auto_increment not null,
+  activity_id               bigint not null,
   name                      varchar(255),
-  activity_id               bigint,
-  grader_id                 bigint,
   constraint pk_team primary key (id))
 ;
 
@@ -182,18 +181,18 @@ alter table claim add constraint fk_claim_processor_3 foreign key (processor_ema
 create index ix_claim_processor_3 on claim (processor_email);
 alter table claim add constraint fk_claim_newOption_4 foreign key (new_option_id) references option (id) on delete restrict on update restrict;
 create index ix_claim_newOption_4 on claim (new_option_id);
-alter table criterion add constraint fk_criterion_claim_5 foreign key (claim_id) references claim (id) on delete restrict on update restrict;
-create index ix_criterion_claim_5 on criterion (claim_id);
-alter table criterion add constraint fk_criterion_majorCriterion_6 foreign key (major_criterion_id) references major_criterion (id) on delete restrict on update restrict;
-create index ix_criterion_majorCriterion_6 on criterion (major_criterion_id);
+alter table criterion add constraint fk_criterion_major_criterion_5 foreign key (major_criterion_id) references major_criterion (id) on delete restrict on update restrict;
+create index ix_criterion_major_criterion_5 on criterion (major_criterion_id);
+alter table criterion add constraint fk_criterion_claim_6 foreign key (claim_id) references claim (id) on delete restrict on update restrict;
+create index ix_criterion_claim_6 on criterion (claim_id);
 alter table major_criterion add constraint fk_major_criterion_bullet_7 foreign key (bullet_id) references bullet (id) on delete restrict on update restrict;
 create index ix_major_criterion_bullet_7 on major_criterion (bullet_id);
 alter table option add constraint fk_option_criterion_8 foreign key (criterion_id) references criterion (id) on delete restrict on update restrict;
 create index ix_option_criterion_8 on option (criterion_id);
-alter table option_request add constraint fk_option_request_postulator_9 foreign key (postulator_id) references grader (id) on delete restrict on update restrict;
-create index ix_option_request_postulator_9 on option_request (postulator_id);
-alter table option_request add constraint fk_option_request_criterion_10 foreign key (criterion_id) references criterion (id) on delete restrict on update restrict;
-create index ix_option_request_criterion_10 on option_request (criterion_id);
+alter table option_request add constraint fk_option_request_criterion_9 foreign key (criterion_id) references criterion (id) on delete restrict on update restrict;
+create index ix_option_request_criterion_9 on option_request (criterion_id);
+alter table option_request add constraint fk_option_request_postulator_10 foreign key (postulator_id) references grader (id) on delete restrict on update restrict;
+create index ix_option_request_postulator_10 on option_request (postulator_id);
 alter table semester add constraint fk_semester_course_11 foreign key (course_code) references course (code) on delete restrict on update restrict;
 create index ix_semester_course_11 on semester (course_code);
 alter table student add constraint fk_student_semester_12 foreign key (semester_id) references semester (id) on delete restrict on update restrict;
@@ -202,8 +201,6 @@ alter table task add constraint fk_task_activity_13 foreign key (activity_id) re
 create index ix_task_activity_13 on task (activity_id);
 alter table team add constraint fk_team_activity_14 foreign key (activity_id) references activity (id) on delete restrict on update restrict;
 create index ix_team_activity_14 on team (activity_id);
-alter table team add constraint fk_team_grader_15 foreign key (grader_id) references grader (id) on delete restrict on update restrict;
-create index ix_team_grader_15 on team (grader_id);
 
 
 

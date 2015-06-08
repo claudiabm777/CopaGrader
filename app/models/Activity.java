@@ -28,17 +28,16 @@ public class Activity extends Model {
     @Formats.DateTime(pattern="dd/MM/yyyy")
     private Date creationDate;
 
-    @OneToMany(mappedBy="activity",cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL)
     private List<Task>tasks;
 
-    @OneToMany(mappedBy="activity",cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL)
     private List<Team>teams;
 
     @ManyToMany(cascade = CascadeType.ALL)
     private List<Admin>adminsInCharge;
 
-    @ManyToOne
-    private Semester semester;
+
 
     public static Finder<Long,Activity> find = new Finder<Long,Activity>(
             Long.class, Activity.class
@@ -51,7 +50,6 @@ public class Activity extends Model {
         this.name=name;
         this.deadline=deadline;
         this.creationDate=creationDate;
-        this.semester=semester;
     }
 
     //--------------------------------------------------------------------------------------------------------------------------
@@ -86,9 +84,6 @@ public class Activity extends Model {
         return teams;
     }
 
-    public Semester getSemester() {
-        return semester;
-    }
 
     //--------------------------------------------------------------------------------------------------------------------------
     //Setters-------------------------------------------------------------------------------------------------------------------
@@ -112,10 +107,6 @@ public class Activity extends Model {
 
     public void setAdminsInCharge(List<Admin> adminsInCharge) {
         this.adminsInCharge = adminsInCharge;
-    }
-
-    public void setSemester(Semester semester) {
-        this.semester = semester;
     }
 
     public void setTasks(List<Task> tasks) {
