@@ -3,6 +3,7 @@ package models;
 import com.avaje.ebean.Model;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -14,14 +15,13 @@ public class Grader extends Model {
     //--------------------------------------------------------------------------------------------------------------------------
     //Attributes----------------------------------------------------------------------------------------------------------------
     //--------------------------------------------------------------------------------------------------------------------------
-    @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
-    private Long id;
+
 
     private String names;
     private String lastNames;
-    private Long identityCard;
-    private Long phone;
+    private String identityCard;
+    private String phone;
+    @Id
     private String email;
     private String password;
     private Boolean enable;
@@ -33,6 +33,22 @@ public class Grader extends Model {
     public static Finder<Long,Grader> find = new Finder<Long,Grader>(
             Long.class, Grader.class
     );
+
+    //--------------------------------------------------------------------------------------------------------------------------
+    //Constructor---------------------------------------------------------------------------------------------------------------
+    //--------------------------------------------------------------------------------------------------------------------------
+    public Grader(String names, String lastNames, String identityCard, String phone,String email, String password, Boolean enable,Integer cargo){
+        this.teams=new ArrayList<Team>();
+        this.names=names;
+        this.lastNames=lastNames;
+        this.identityCard=identityCard;
+        this.phone=phone;
+        this.email=email;
+        this.password=password;
+        this.enable=enable;
+        this.cargo=cargo;
+    }
+
     //--------------------------------------------------------------------------------------------------------------------------
     //Getters-------------------------------------------------------------------------------------------------------------------
     //--------------------------------------------------------------------------------------------------------------------------
@@ -44,15 +60,11 @@ public class Grader extends Model {
         return cargo;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public Long getIdentityCard() {
+    public String getIdentityCard() {
         return identityCard;
     }
 
-    public Long getPhone() {
+    public String getPhone() {
         return phone;
     }
 
@@ -91,11 +103,7 @@ public class Grader extends Model {
         this.enable = enable;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public void setIdentityCard(Long identityCard) {
+    public void setIdentityCard(String identityCard) {
         this.identityCard = identityCard;
     }
 
@@ -107,7 +115,7 @@ public class Grader extends Model {
         this.names = names;
     }
 
-    public void setPhone(Long phone) {
+    public void setPhone(String phone) {
         this.phone = phone;
     }
 
