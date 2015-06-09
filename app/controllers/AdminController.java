@@ -82,7 +82,7 @@ public class AdminController extends  Controller {
             Admin admin = Admin.transformJson(newAdmin);
             Admin admin1 = Admin.find.byId(oldId);
             if (admin1 == null) {
-                throw new SuperAdminException(admin1.getEmail(), ErrorMessage.NOT_CREATED);
+                throw new AdminException(admin1.getEmail(), ErrorMessage.NOT_CREATED);
             }
             if((!admin.getEmail().equals(oldId))&&(Admin.find.byId(admin.getEmail())!=null)){
                 throw new AdminException(AdminException.CODE_REPEATED);

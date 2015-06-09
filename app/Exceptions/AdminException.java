@@ -8,7 +8,7 @@ import models.Course;
  */
 public class AdminException extends Exception {
 
-    public final static String CODE_REPEATED ="Ya existe un administrador con este mismo email y no deben estar repeidos. Por favor ingrese un nuevo email para el curso";
+    public final static String CODE_REPEATED ="Ya existe un administrador con este mismo email y no deben estar repeidos. Por favor ingrese un nuevo email para este.";
 
     public AdminException(Admin admin,String cause) {
         super("El administrador "+admin.getNames()+" "+admin.getLastNames()+" con email "+admin.getEmail()+cause);
