@@ -1,6 +1,7 @@
 package models;
 
 import com.avaje.ebean.Model;
+import com.fasterxml.jackson.databind.JsonNode;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -30,8 +31,8 @@ public class Grader extends Model {
     @OneToMany(cascade = CascadeType.ALL)
     private List<Team>teams;
 
-    public static Finder<Long,Grader> find = new Finder<Long,Grader>(
-            Long.class, Grader.class
+    public static Finder<String,Grader> find = new Finder<String,Grader>(
+            String.class, Grader.class
     );
 
     //--------------------------------------------------------------------------------------------------------------------------
@@ -119,4 +120,16 @@ public class Grader extends Model {
         this.phone = phone;
     }
 
+    public static Grader transformJson(JsonNode j){
+        String names = j.findPath("names").asText();
+        String lastNames = j.findPath("lastNames").asText();
+        String identityCard=j.findPath("identityCard").asText();
+        String phone=j.findPath("phone").asText();
+        String email = j.findPath("email").asText();
+        String password = j.findPath("password").asText();
+        Boolean enable=j.findPath("enable").asBoolean();
+        Integer cargo=j.findPath("cargo").asInt();
+        Grader grader = new Grader(names, lastNames, identityCard,phone,email,password,enable,cargo);
+        return grader;
+    }
 }
