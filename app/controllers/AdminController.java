@@ -1,11 +1,13 @@
 package controllers;
 
 import Exceptions.AdminException;
+import Exceptions.CourseException;
 import Exceptions.ErrorMessage;
 import Exceptions.SuperAdminException;
 import com.avaje.ebean.Ebean;
 import com.fasterxml.jackson.databind.JsonNode;
 import models.Admin;
+import models.Course;
 import play.*;
 import play.libs.Json;
 import play.mvc.*;
@@ -53,7 +55,7 @@ public class AdminController extends  Controller {
     /**
      * This method gets an admin in the system by id (email).
      */
-
+    @BodyParser.Of(BodyParser.Json.class)
     public Result getAnAdminId(){
         try {
             String idAdmin = Controller.request().body().asJson().findPath("idAdmin").asText();
@@ -72,6 +74,7 @@ public class AdminController extends  Controller {
      *
      * @return
      */
+    @BodyParser.Of(BodyParser.Json.class)
     public Result editAdmin(){
         try {
             JsonNode newAdmin = Controller.request().body().asJson();
@@ -105,6 +108,7 @@ public class AdminController extends  Controller {
      *
      * @return
      */
+    @BodyParser.Of(BodyParser.Json.class)
     public Result deleteAdminId(){
         try {
             String idAdmin = Controller.request().body().asJson().findPath("idAdmin").asText();
@@ -120,5 +124,54 @@ public class AdminController extends  Controller {
 
     }
 
+    /**
+     *
+     * @return
+     */
+    @BodyParser.Of(BodyParser.Json.class)
+    public Result addCourseAdmin(){
+        try {
+            String idAdmin = Controller.request().body().asJson().findPath("idAdmin").asText();
+            String idCourse = Controller.request().body().asJson().findPath("idCourse").asText();
+            Admin admin = Admin.find.byId(idAdmin);
+            Course course = Course.find.byId(idCourse);
+            if (admin == null) {
+                throw new AdminException(idAdmin, ErrorMessage.NOT_CREATED);
+            }
+            if(course==null){
+                throw new CourseException(idCourse,ErrorMessage.NOT_CREATED);
+            }
+            admin.addCourseAdmin(course);
+            admin.save();
+            return ok();
+        }catch (Throwable e){
+            return badRequest(e.getMessage());
+        }
+    }
+
+    /**
+     *
+     * @return
+     */
+    @BodyParser.Of(BodyParser.Json.class)
+    public Result deleteCourseAdmin(){
+        try{
+            String idAdmin = Controller.request().body().asJson().findPath("idAdmin").asText();
+            String idCourse = Controller.request().body().asJson().findPath("idCourse").asText();
+            Admin admin = Admin.find.byId(idAdmin);
+            Course course = Course.find.byId(idCourse);
+            if (admin == null) {
+                throw new AdminException(idAdmin, ErrorMessage.NOT_CREATED);
+            }
+            if(course==null){
+                throw new CourseException(idCourse,ErrorMessage.NOT_CREATED);
+            }
+            admin.deleteCourseAdmin(course);
+            admin.save();
+            return ok();
+        }catch (Throwable e){
+            return badRequest(e.getMessage());
+        }
+    }
 
 }

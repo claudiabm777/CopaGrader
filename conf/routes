@@ -35,6 +35,8 @@ GET     /admin/allAdmins            controllers.AdminController.getAdmins()
 POST    /admin/anAdmin              controllers.AdminController.getAnAdminId()
 POST    /admin/edit                 controllers.AdminController.editAdmin()
 POST    /admin/delete               controllers.AdminController.deleteAdminId()
+POST    /admin/course/add           controllers.AdminController.addCourseAdmin()
+POST    /admin/course/delete        controllers.AdminController.deleteCourseAdmin()
 #######################################################################################################################
 
 #######################################################################################################################

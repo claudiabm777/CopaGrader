@@ -120,7 +120,7 @@ public class Admin extends Model{
         String email = j.findPath("email").asText();
         String password = j.findPath("password").asText();
         Boolean enable=j.findPath("enable").asBoolean();
-        Admin admin = new Admin(names, lastNames, identityCard,phone,email,password,enable);
+        Admin admin = new Admin(email,names, lastNames, identityCard,phone,password,enable);
         return admin;
     }
 
@@ -130,6 +130,13 @@ public class Admin extends Model{
             throw new AdminException(course,this.email);
         }
         courses.add(course);
-
+    }
+    public void deleteCourseAdmin(Course course)throws Exception{
+        Integer i=Course.searchCourseInAList(courses,course.getCode());
+        if(i==-1){
+            throw new AdminException(course,this.email);
+        }
+        Course course1=courses.get(i);
+        courses.remove(course1);
     }
 }
