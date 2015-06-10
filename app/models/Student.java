@@ -25,10 +25,22 @@ public class Student extends Model {
     private Integer magisSection;
     private Integer complSection;
 
-
     public static Finder<Long,Student> find = new Finder<Long,Student>(
             Long.class, Student.class
     );
+
+    //--------------------------------------------------------------------------------------------------------------------------
+    //Constructor---------------------------------------------------------------------------------------------------------------
+    //--------------------------------------------------------------------------------------------------------------------------
+    public Student(String names, String lastNames, String career, Integer code, String email, Integer magisSection, Integer complSection){
+        this.career=career;
+        this.code=code;
+        this.email=email;
+        this.names=names;
+        this.lastNames=lastNames;
+        this.magisSection=magisSection;
+        this.complSection=complSection;
+    }
     //--------------------------------------------------------------------------------------------------------------------------
     //Getters-------------------------------------------------------------------------------------------------------------------
     //--------------------------------------------------------------------------------------------------------------------------

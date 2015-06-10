@@ -120,6 +120,9 @@ public class Grader extends Model {
         this.phone = phone;
     }
 
+    //--------------------------------------------------------------------------------------------------------------------------
+    //Methods-------------------------------------------------------------------------------------------------------------------
+    //--------------------------------------------------------------------------------------------------------------------------
     public static Grader transformJson(JsonNode j){
         String names = j.findPath("names").asText();
         String lastNames = j.findPath("lastNames").asText();
@@ -132,4 +135,6 @@ public class Grader extends Model {
         Grader grader = new Grader(names, lastNames, identityCard,phone,email,password,enable,cargo);
         return grader;
     }
+
+
 }

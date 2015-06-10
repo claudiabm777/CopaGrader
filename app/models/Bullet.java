@@ -3,6 +3,7 @@ package models;
 import com.avaje.ebean.Model;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -24,11 +25,18 @@ public class Bullet extends Model {
     @OneToMany(cascade = CascadeType.ALL)
     private List<MajorCriterion>majorCriterions;
 
-
-
     public static Finder<Long,Bullet> find = new Finder<Long,Bullet>(
             Long.class, Bullet.class
     );
+
+    //--------------------------------------------------------------------------------------------------------------------------
+    //Constructor---------------------------------------------------------------------------------------------------------------
+    //--------------------------------------------------------------------------------------------------------------------------
+    public Bullet(String description){
+        this.majorCriterions=new ArrayList<MajorCriterion>();
+        this.description=description;
+    }
+
     //--------------------------------------------------------------------------------------------------------------------------
     //Getters-------------------------------------------------------------------------------------------------------------------
     //--------------------------------------------------------------------------------------------------------------------------

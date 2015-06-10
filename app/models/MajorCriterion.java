@@ -3,6 +3,7 @@ package models;
 import com.avaje.ebean.Model;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -27,6 +28,15 @@ public class MajorCriterion extends Model {
     public static Finder<Long,MajorCriterion> find = new Finder<Long,MajorCriterion>(
             Long.class, MajorCriterion.class
     );
+
+    //--------------------------------------------------------------------------------------------------------------------------
+    //Constructor---------------------------------------------------------------------------------------------------------------
+    //--------------------------------------------------------------------------------------------------------------------------
+    public MajorCriterion(String description){
+        this.criterions=new ArrayList<Criterion>();
+        this.description=description;
+    }
+
     //--------------------------------------------------------------------------------------------------------------------------
     //Getters-------------------------------------------------------------------------------------------------------------------
     //--------------------------------------------------------------------------------------------------------------------------

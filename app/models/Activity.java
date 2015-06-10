@@ -46,10 +46,13 @@ public class Activity extends Model {
     //--------------------------------------------------------------------------------------------------------------------------
     //Constructor---------------------------------------------------------------------------------------------------------------
     //--------------------------------------------------------------------------------------------------------------------------
-    public Activity(String name, Date deadline, Date creationDate, Semester semester){
+    public Activity(String name, Date deadline, Date creationDate ){
         this.name=name;
         this.deadline=deadline;
         this.creationDate=creationDate;
+        this.tasks=new ArrayList<Task>();
+        this.teams=new ArrayList<Team>();
+        this.adminsInCharge=new ArrayList<Admin>();
     }
 
     //--------------------------------------------------------------------------------------------------------------------------

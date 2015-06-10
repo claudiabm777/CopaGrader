@@ -3,6 +3,7 @@ package models;
 import com.avaje.ebean.Model;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -30,11 +31,20 @@ public class Criterion extends Model {
     @OneToMany(cascade = CascadeType.ALL)
     private List<Option>options;
 
-
-
     public static Finder<Long,Criterion> find = new Finder<Long,Criterion>(
             Long.class, Criterion.class
     );
+
+    //--------------------------------------------------------------------------------------------------------------------------
+    //Constructor---------------------------------------------------------------------------------------------------------------
+    //--------------------------------------------------------------------------------------------------------------------------
+    public Criterion(String description, Claim claim){
+        this.optionRequests=new ArrayList<OptionRequest>();
+        this.options=new ArrayList<Option>();
+        this.description=description;
+        this.claim=claim;
+    }
+
     //--------------------------------------------------------------------------------------------------------------------------
     //Getters-------------------------------------------------------------------------------------------------------------------
     //--------------------------------------------------------------------------------------------------------------------------
