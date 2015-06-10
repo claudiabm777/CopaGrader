@@ -59,16 +59,15 @@ create table criterion (
 ;
 
 create table grader (
-  id                        bigint auto_increment not null,
+  email                     varchar(255) not null,
   names                     varchar(255),
   last_names                varchar(255),
-  identity_card             bigint,
-  phone                     bigint,
-  email                     varchar(255),
+  identity_card             varchar(255),
+  phone                     varchar(255),
   password                  varchar(255),
   enable                    boolean,
   cargo                     integer,
-  constraint pk_grader primary key (id))
+  constraint pk_grader primary key (email))
 ;
 
 create table major_criterion (
@@ -94,8 +93,8 @@ create table option_request (
   description               clob,
   is_penalty                boolean,
   creation_date             timestamp,
-  postulator_id             bigint,
-  constraint uq_option_request_postulator_id unique (postulator_id),
+  postulator_email          varchar(255),
+  constraint uq_option_request_postulator_ema unique (postulator_email),
   constraint pk_option_request primary key (id))
 ;
 
@@ -138,7 +137,7 @@ create table task (
 
 create table team (
   id                        bigint auto_increment not null,
-  grader_id                 bigint not null,
+  grader_email              varchar(255) not null,
   name                      varchar(255),
   constraint pk_team primary key (id))
 ;
@@ -158,8 +157,8 @@ create table admin_course (
 
 create table semester_grader (
   semester_id                    bigint not null,
-  grader_id                      bigint not null,
-  constraint pk_semester_grader primary key (semester_id, grader_id))
+  grader_email                   varchar(255) not null,
+  constraint pk_semester_grader primary key (semester_id, grader_email))
 ;
 
 create table team_student (
@@ -170,6 +169,8 @@ create table team_student (
 create sequence admin_seq;
 
 create sequence course_seq;
+
+create sequence grader_seq;
 
 create sequence super_admin_seq;
 
@@ -191,16 +192,16 @@ alter table option add constraint fk_option_criterion_8 foreign key (criterion_i
 create index ix_option_criterion_8 on option (criterion_id);
 alter table option_request add constraint fk_option_request_criterion_9 foreign key (criterion_id) references criterion (id) on delete restrict on update restrict;
 create index ix_option_request_criterion_9 on option_request (criterion_id);
-alter table option_request add constraint fk_option_request_postulator_10 foreign key (postulator_id) references grader (id) on delete restrict on update restrict;
-create index ix_option_request_postulator_10 on option_request (postulator_id);
+alter table option_request add constraint fk_option_request_postulator_10 foreign key (postulator_email) references grader (email) on delete restrict on update restrict;
+create index ix_option_request_postulator_10 on option_request (postulator_email);
 alter table semester add constraint fk_semester_course_11 foreign key (course_code) references course (code) on delete restrict on update restrict;
 create index ix_semester_course_11 on semester (course_code);
 alter table student add constraint fk_student_semester_12 foreign key (semester_id) references semester (id) on delete restrict on update restrict;
 create index ix_student_semester_12 on student (semester_id);
 alter table task add constraint fk_task_activity_13 foreign key (activity_id) references activity (id) on delete restrict on update restrict;
 create index ix_task_activity_13 on task (activity_id);
-alter table team add constraint fk_team_grader_14 foreign key (grader_id) references grader (id) on delete restrict on update restrict;
-create index ix_team_grader_14 on team (grader_id);
+alter table team add constraint fk_team_grader_14 foreign key (grader_email) references grader (email) on delete restrict on update restrict;
+create index ix_team_grader_14 on team (grader_email);
 
 
 
@@ -214,7 +215,7 @@ alter table admin_course add constraint fk_admin_course_course_02 foreign key (c
 
 alter table semester_grader add constraint fk_semester_grader_semester_01 foreign key (semester_id) references semester (id) on delete restrict on update restrict;
 
-alter table semester_grader add constraint fk_semester_grader_grader_02 foreign key (grader_id) references grader (id) on delete restrict on update restrict;
+alter table semester_grader add constraint fk_semester_grader_grader_02 foreign key (grader_email) references grader (email) on delete restrict on update restrict;
 
 alter table team_student add constraint fk_team_student_team_01 foreign key (team_id) references team (id) on delete restrict on update restrict;
 
@@ -267,6 +268,8 @@ SET REFERENTIAL_INTEGRITY TRUE;
 drop sequence if exists admin_seq;
 
 drop sequence if exists course_seq;
+
+drop sequence if exists grader_seq;
 
 drop sequence if exists super_admin_seq;
 
