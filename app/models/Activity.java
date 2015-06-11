@@ -1,6 +1,8 @@
 package models;
 
 import com.avaje.ebean.Model;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.JsonNode;
 import play.data.format.Formats;
 
 import javax.persistence.*;
@@ -21,11 +23,12 @@ public class Activity extends Model {
     private Long id;
 
     private String name;
-
-    @Formats.DateTime(pattern="dd/MM/yyyy")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy hh:mm:ss")
+    @Formats.DateTime(pattern="dd/MM/yyyy hh:mm:ss")
     private Date deadline;
 
-    @Formats.DateTime(pattern="dd/MM/yyyy")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy hh:mm:ss")
+    @Formats.DateTime(pattern="dd/MM/yyyy hh:mm:ss")
     private Date creationDate;
 
     @OneToMany(cascade = CascadeType.ALL)
@@ -123,9 +126,7 @@ public class Activity extends Model {
     //--------------------------------------------------------------------------------------------------------------------------
     //Methods-------------------------------------------------------------------------------------------------------------------
     //--------------------------------------------------------------------------------------------------------------------------
-    /*
-    Add an admin in charge
-     */
+
     public void addAdminInCharge(String idAdmin) throws Exception {
         Admin newAdmin=Admin.find.byId(idAdmin);
         if(newAdmin==null){
@@ -154,5 +155,14 @@ public class Activity extends Model {
         tasks.add(newTask);
     }
 
+    public static Activity transformJson(JsonNode j){
+        String name = j.findPath("name").asText();
+        Date deadline= new Date(j.findPath("deadline").asLong());
+        //Date deadline=null;
+        //System.out.print(new Date(System.currentTimeMillis()));
+        Date creationDate=new Date(System.currentTimeMillis()- 3600 * 5000 );
 
+        Activity activity = new Activity(name,deadline,creationDate);
+        return activity;
+    }
 }

@@ -21,6 +21,7 @@ POST    /courses/editSemester       controllers.CourseController.editSemesterFro
 #######################################################################################################################
 # SEMESTERS: /semesters
 GET     /semesters/allSemesters     controllers.SemesterController.getSemesters()
+POST    /semesters/activity/add     controllers.SemesterController.addActivityToSemester()
 #######################################################################################################################
 # SUPER_ADMIN: /superAdmin
 GET     /superAdmin/allSuperA       controllers.SuperAdminController.getSuperAdmins()
@@ -38,7 +39,11 @@ POST    /admin/delete               controllers.AdminController.deleteAdminId()
 POST    /admin/course/add           controllers.AdminController.addCourseAdmin()
 POST    /admin/course/delete        controllers.AdminController.deleteCourseAdmin()
 #######################################################################################################################
-
+# ACTIVITY: /activity
+GET     /activity/allActivities     controllers.ActivityController.getActivities()
+POST    /activity/edit              controllers.ActivityController.editActivity()
+POST    /activity/anActivity        controllers.ActivityController.getActivityId()
+POST    /activity/delete            controllers.ActivityController.deleteActivity()
 #######################################################################################################################
 
 #######################################################################################################################

@@ -97,6 +97,10 @@ public class Semester extends Model {
     //Methods-------------------------------------------------------------------------------------------------------------------
     //--------------------------------------------------------------------------------------------------------------------------
 
+    public void addActivityToSemester(Activity activity){
+        activities.add(activity);
+    }
+
     public static Semester transformJson(JsonNode j){
         String period1 = j.findPath("period").asText();
         Semester semester = new Semester(period1);

@@ -1,5 +1,9 @@
 package controllers;
 
+import Exceptions.ErrorMessage;
+import Exceptions.SemesterException;
+import com.fasterxml.jackson.databind.JsonNode;
+import models.Activity;
 import models.Semester;
 import play.*;
 import play.libs.Json;
@@ -21,6 +25,25 @@ public class SemesterController extends Controller {
         try{
             List<Semester> semesters=Semester.find.all();
             return ok(Json.toJson(semesters));
+        }catch (Throwable e){
+            return badRequest(e.getMessage());
+        }
+    }
+
+    @BodyParser.Of(BodyParser.Json.class)
+    public Result addActivityToSemester(){
+        try{
+            JsonNode j=Controller.request().body().asJson();
+            Activity activity=Activity.transformJson(j);
+
+            Long idSemester = Controller.request().body().asJson().findPath("idSemester").asLong();
+            Semester semester=Semester.find.byId(idSemester);
+            if(semester==null){
+                throw new SemesterException( ErrorMessage.NOT_CREATED);
+            }
+            semester.addActivityToSemester(activity);
+            semester.save();
+            return ok();
         }catch (Throwable e){
             return badRequest(e.getMessage());
         }
