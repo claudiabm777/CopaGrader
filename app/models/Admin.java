@@ -1,6 +1,7 @@
 package models;
 
 import Exceptions.AdminException;
+import Exceptions.ErrorMessage;
 import com.avaje.ebean.Model;
 import com.fasterxml.jackson.databind.JsonNode;
 
@@ -127,14 +128,14 @@ public class Admin extends Model{
     public void addCourseAdmin(Course course)throws Exception{
         Integer i=Course.searchCourseInAList(courses,course.getCode());
         if(i!=-1){
-            throw new AdminException(course,this.email);
+            throw new AdminException(course,this.email, ErrorMessage.EXISTS);
         }
         courses.add(course);
     }
     public void deleteCourseAdmin(Course course)throws Exception{
         Integer i=Course.searchCourseInAList(courses,course.getCode());
         if(i==-1){
-            throw new AdminException(course,this.email);
+            throw new AdminException(course,this.email, ErrorMessage.NOT_EXISTS);
         }
         Course course1=courses.get(i);
         courses.remove(course1);

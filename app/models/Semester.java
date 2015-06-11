@@ -1,5 +1,7 @@
 package models;
 
+import Exceptions.ErrorMessage;
+import Exceptions.SemesterException;
 import com.avaje.ebean.Model;
 import com.fasterxml.jackson.databind.JsonNode;
 
@@ -105,6 +107,21 @@ public class Semester extends Model {
         students.add(student);
     }
 
+    public void addGraderSemester(Grader grader)throws Exception{
+        Integer i=Grader.searchGraderInAList(graders, grader.getEmail());
+        if(i!=-1){
+            throw new SemesterException(grader.getEmail(), ErrorMessage.EXISTS);
+        }
+        graders.add(grader);
+    }
+
+    public void deleteGraderSemester(Grader grader) throws Exception{
+        Integer i=Grader.searchGraderInAList(graders, grader.getEmail());
+        if(i==-1){
+            throw new SemesterException(grader.getEmail(), ErrorMessage.NOT_EXISTS);
+        }
+        graders.remove(grader);
+    }
     public static Semester transformJson(JsonNode j){
         String period1 = j.findPath("period").asText();
         Semester semester = new Semester(period1);

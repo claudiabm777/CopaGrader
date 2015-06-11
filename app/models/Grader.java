@@ -136,5 +136,13 @@ public class Grader extends Model {
         return grader;
     }
 
-
+    public static Integer searchGraderInAList(List<Grader>graders,String idGrader){
+        for(int i=0;i<graders.size();i++){
+            Grader grader=graders.get(i);
+            if(grader.getEmail().equals(idGrader)){
+                return i;
+            }
+        }
+        return -1;
+    }
 }

@@ -22,8 +22,8 @@ public class AdminException extends Exception {
         super(message);
     }
 
-    public AdminException(Course course,String idAdmin){
-        super("El administrador con email "+idAdmin+" ya existe en el curso "+course.getName()+" con código "+course.getCode()+".");
+    public AdminException(Course course,String idAdmin,String cause){
+        super("El administrador con email "+idAdmin+cause+"en el curso "+course.getName()+" con código "+course.getCode()+".");
     }
 
 }

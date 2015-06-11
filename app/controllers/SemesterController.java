@@ -1,9 +1,11 @@
 package controllers;
 
 import Exceptions.ErrorMessage;
+import Exceptions.GraderException;
 import Exceptions.SemesterException;
 import com.fasterxml.jackson.databind.JsonNode;
 import models.Activity;
+import models.Grader;
 import models.Semester;
 import models.Student;
 import play.*;
@@ -70,4 +72,45 @@ public class SemesterController extends Controller {
 
     }
 
+    @BodyParser.Of(BodyParser.Json.class)
+    public Result addGraderSemester(){
+        try{
+            Long idSemester = Controller.request().body().asJson().findPath("idSemester").asLong();
+            String idGrader = Controller.request().body().asJson().findPath("idGrader").asText();
+            Grader grader=Grader.find.byId(idGrader);
+            Semester semester=Semester.find.byId(idSemester);
+            if(grader==null){
+                throw new GraderException(idGrader,ErrorMessage.NOT_CREATED);
+            }
+            if(semester==null){
+                throw new SemesterException(ErrorMessage.NOT_CREATED);
+            }
+            semester.addGraderSemester(grader);
+            semester.save();
+            return ok();
+        }catch (Throwable e){
+            return badRequest(e.getMessage());
+        }
+    }
+
+    @BodyParser.Of(BodyParser.Json.class)
+    public Result deleteGraderSemester(){
+        try{
+            Long idSemester = Controller.request().body().asJson().findPath("idSemester").asLong();
+            String idGrader = Controller.request().body().asJson().findPath("idGrader").asText();
+            Grader grader = Grader.find.byId(idGrader);
+            Semester semester= Semester.find.byId(idSemester);
+            if (grader == null) {
+                throw new GraderException(idGrader, ErrorMessage.NOT_CREATED);
+            }
+            if(semester==null){
+                throw new SemesterException(ErrorMessage.NOT_CREATED);
+            }
+            semester.deleteGraderSemester(grader);
+            semester.update();
+            return ok();
+        }catch (Throwable e){
+            return badRequest(e.getMessage());
+        }
+    }
 }
