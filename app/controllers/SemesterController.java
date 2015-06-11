@@ -36,7 +36,7 @@ public class SemesterController extends Controller {
         try{
             JsonNode j=Controller.request().body().asJson();
             Activity activity=Activity.transformJson(j);
-
+            //PENDIENTE AGREGAR ADMINISTRADORES ENCARGADOS!!
             Long idSemester = Controller.request().body().asJson().findPath("idSemester").asLong();
             Semester semester=Semester.find.byId(idSemester);
             if(semester==null){

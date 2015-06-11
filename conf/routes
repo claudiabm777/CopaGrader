@@ -52,6 +52,21 @@ POST    /student/aStudent           controllers.StudentController.getStudentId()
 POST    /student/edit               controllers.StudentController.editStudentId()
 POST    /student/delete             controllers.StudentController.deleteStudent()
 #######################################################################################################################
+# GRADER: /grader
+GET     /grader/allGraders          controllers.GraderController.getGraders()
+POST    /grader/aGrader             controllers.GraderController.getGraderId()
+POST    /grader/edit                controllers.GraderController.editGrader()
+POST    /grader/delete              controllers.GraderController.deleteGrader()
+POST    /grader/create              controllers.GraderController.createGrader()
+#######################################################################################################################
+
+#######################################################################################################################
+
+#######################################################################################################################
+
+#######################################################################################################################
+
+#######################################################################################################################
 
 #######################################################################################################################
 # Map static resources from the /public folder to the /assets URL path
