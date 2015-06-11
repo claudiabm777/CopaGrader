@@ -48,7 +48,9 @@ POST    /activity/delete            controllers.ActivityController.deleteActivit
 #######################################################################################################################
 # STUDENT: /student
 GET     /student/allStudents        controllers.StudentController.getStudents()
-POST    /student/anStudent          controllers.StudentController.getStudentId()
+POST    /student/aStudent           controllers.StudentController.getStudentId()
+POST    /student/edit               controllers.StudentController.editStudentId()
+POST    /student/delete             controllers.StudentController.deleteStudent()
 #######################################################################################################################
 
 #######################################################################################################################
