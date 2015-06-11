@@ -72,6 +72,11 @@ public class ActivityController extends Controller {
         }
     }
 
+    /**
+     *
+     * @return
+     */
+    @BodyParser.Of(BodyParser.Json.class)
     public Result getActivityId(){
         try{
             Long idActivity = Controller.request().body().asJson().findPath("idActivity").asLong();

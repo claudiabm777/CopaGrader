@@ -46,7 +46,9 @@ POST    /activity/edit              controllers.ActivityController.editActivity(
 POST    /activity/anActivity        controllers.ActivityController.getActivityId()
 POST    /activity/delete            controllers.ActivityController.deleteActivity()
 #######################################################################################################################
-
+# STUDENT: /student
+GET     /student/allStudents        controllers.StudentController.getStudents()
+POST    /student/anStudent          controllers.StudentController.getStudentId()
 #######################################################################################################################
 
 #######################################################################################################################
