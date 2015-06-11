@@ -7,4 +7,6 @@ import views.html.*;
  * Created by Asus on 04/06/2015.
  */
 public class StudentController extends Controller {
+
+
 }

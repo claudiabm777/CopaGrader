@@ -101,6 +101,10 @@ public class Semester extends Model {
         activities.add(activity);
     }
 
+    public void addStudentToSemester(Student student){
+        students.add(student);
+    }
+
     public static Semester transformJson(JsonNode j){
         String period1 = j.findPath("period").asText();
         Semester semester = new Semester(period1);

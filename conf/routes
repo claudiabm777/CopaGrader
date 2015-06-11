@@ -22,6 +22,7 @@ POST    /courses/editSemester       controllers.CourseController.editSemesterFro
 # SEMESTERS: /semesters
 GET     /semesters/allSemesters     controllers.SemesterController.getSemesters()
 POST    /semesters/activity/add     controllers.SemesterController.addActivityToSemester()
+POST    /semesters/student/add      controllers.SemesterController.addStudentToSemester()
 #######################################################################################################################
 # SUPER_ADMIN: /superAdmin
 GET     /superAdmin/allSuperA       controllers.SuperAdminController.getSuperAdmins()

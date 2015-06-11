@@ -1,6 +1,7 @@
 package models;
 
 import com.avaje.ebean.Model;
+import com.fasterxml.jackson.databind.JsonNode;
 import scala.Int;
 
 import javax.persistence.*;
@@ -19,7 +20,7 @@ public class Student extends Model {
     private Long id;
     private String names;
     private String lastNames;
-    private Integer code;
+    private String code;
     private String career;
     private String email;
     private Integer magisSection;
@@ -32,7 +33,7 @@ public class Student extends Model {
     //--------------------------------------------------------------------------------------------------------------------------
     //Constructor---------------------------------------------------------------------------------------------------------------
     //--------------------------------------------------------------------------------------------------------------------------
-    public Student(String names, String lastNames, String career, Integer code, String email, Integer magisSection, Integer complSection){
+    public Student(String names, String lastNames, String career, String code, String email, Integer magisSection, Integer complSection){
         this.career=career;
         this.code=code;
         this.email=email;
@@ -44,7 +45,7 @@ public class Student extends Model {
     //--------------------------------------------------------------------------------------------------------------------------
     //Getters-------------------------------------------------------------------------------------------------------------------
     //--------------------------------------------------------------------------------------------------------------------------
-    public Integer getCode() {
+    public String getCode() {
         return code;
     }
 
@@ -83,7 +84,7 @@ public class Student extends Model {
         this.career = career;
     }
 
-    public void setCode(Integer code) {
+    public void setCode(String code) {
         this.code = code;
     }
 
@@ -111,4 +112,18 @@ public class Student extends Model {
         this.names = names;
     }
 
+    //--------------------------------------------------------------------------------------------------------------------------
+    //Methods-------------------------------------------------------------------------------------------------------------------
+    //--------------------------------------------------------------------------------------------------------------------------
+    public static Student transformJson(JsonNode j){
+        String names = j.findPath("names").asText();
+        String lastNames = j.findPath("lastNames").asText();
+        String code=j.findPath("code").asText();
+        String career=j.findPath("career").asText();
+        String email = j.findPath("email").asText();
+        Integer magisSection=j.findPath("magisSection").asInt();
+        Integer complSection=j.findPath("complSection").asInt();
+        Student student = new Student(names, lastNames, career,code,email,magisSection,complSection);
+        return student;
+    }
 }
