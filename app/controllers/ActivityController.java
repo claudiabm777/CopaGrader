@@ -45,7 +45,6 @@ public class ActivityController extends Controller {
         try {
             JsonNode newActivity = Controller.request().body().asJson();
             Long oldId=newActivity.findPath("oldId").asLong();
-            //PENDIENTE EDITAR ADMINISTRADORES ENCARGADOS.
             Activity activity = Activity.transformJson(newActivity);
             Activity activity1 = Activity.find.byId(oldId);
             if (activity1 == null) {

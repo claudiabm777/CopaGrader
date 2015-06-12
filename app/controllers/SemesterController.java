@@ -34,12 +34,15 @@ public class SemesterController extends Controller {
         }
     }
 
+    /**
+     *
+     * @return
+     */
     @BodyParser.Of(BodyParser.Json.class)
     public Result addActivityToSemester(){
         try{
             JsonNode j=Controller.request().body().asJson();
             Activity activity=Activity.transformJson(j);
-            //PENDIENTE AGREGAR ADMINISTRADORES ENCARGADOS!!
 
             Long idSemester = Controller.request().body().asJson().findPath("idSemester").asLong();
             Semester semester=Semester.find.byId(idSemester);
@@ -57,7 +60,10 @@ public class SemesterController extends Controller {
         }
     }
 
-
+    /**
+     *
+     * @return
+     */
     @BodyParser.Of(BodyParser.Json.class)
     public Result addStudentToSemester(){
         try {
@@ -74,9 +80,12 @@ public class SemesterController extends Controller {
         }catch (Throwable e){
             return badRequest(e.getMessage());
         }
-
     }
 
+    /**
+     *
+     * @return
+     */
     @BodyParser.Of(BodyParser.Json.class)
     public Result addGraderSemester(){
         try{
@@ -98,6 +107,10 @@ public class SemesterController extends Controller {
         }
     }
 
+    /**
+     *
+     * @return
+     */
     @BodyParser.Of(BodyParser.Json.class)
     public Result deleteGraderSemester(){
         try{
