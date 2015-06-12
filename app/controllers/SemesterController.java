@@ -1,5 +1,6 @@
 package controllers;
 
+import Exceptions.ActivityException;
 import Exceptions.ErrorMessage;
 import Exceptions.GraderException;
 import Exceptions.SemesterException;
@@ -39,10 +40,14 @@ public class SemesterController extends Controller {
             JsonNode j=Controller.request().body().asJson();
             Activity activity=Activity.transformJson(j);
             //PENDIENTE AGREGAR ADMINISTRADORES ENCARGADOS!!
+
             Long idSemester = Controller.request().body().asJson().findPath("idSemester").asLong();
             Semester semester=Semester.find.byId(idSemester);
             if(semester==null){
                 throw new SemesterException( ErrorMessage.NOT_CREATED);
+            }
+            if(activity==null){
+                throw new ActivityException( ErrorMessage.NOT_CREATED);
             }
             semester.addActivityToSemester(activity);
             semester.save();

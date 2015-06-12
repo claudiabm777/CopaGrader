@@ -1,9 +1,13 @@
 package models;
 
+import Exceptions.AdminException;
+import Exceptions.ErrorMessage;
 import com.avaje.ebean.Model;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import play.data.format.Formats;
+import play.libs.Json;
 
 import javax.persistence.*;
 import java.util.*;
@@ -130,12 +134,12 @@ public class Activity extends Model {
     public void addAdminInCharge(String idAdmin) throws Exception {
         Admin newAdmin=Admin.find.byId(idAdmin);
         if(newAdmin==null){
-            throw new Exception("El asistente a cargo que esta tratando de agregar no existe.");
+            throw new AdminException(idAdmin, ErrorMessage.NOT_CREATED);
         }
         for(int i=0;i<adminsInCharge.size();i++){
             if((adminsInCharge.get(i).getEmail()).equals(newAdmin.getEmail()))
             {
-                throw new Exception("El asistente a cargo que se trata de agregar ya había sido agregado en esta actividad.");
+                throw new AdminException(this,idAdmin,ErrorMessage.EXISTS);
             }
         }
         adminsInCharge.add(newAdmin);
@@ -155,14 +159,18 @@ public class Activity extends Model {
         tasks.add(newTask);
     }
 
-    public static Activity transformJson(JsonNode j){
+    public static Activity transformJson(JsonNode j) throws Exception {
         String name = j.findPath("name").asText();
         Date deadline= new Date(j.findPath("deadline").asLong());
-        //Date deadline=null;
-        //System.out.print(new Date(System.currentTimeMillis()));
+        JsonNode lista=j.findValue("adminsInCharge");
+        List<String> idsAdmins=Json.fromJson(lista, List.class);
         Date creationDate=new Date(System.currentTimeMillis()- 3600 * 5000 );
-
         Activity activity = new Activity(name,deadline,creationDate);
+        if(lista!=null) {
+            for (int i = 0; i < idsAdmins.size(); i++) {
+                activity.addAdminInCharge(idsAdmins.get(i));
+            }
+        }
         return activity;
     }
 }

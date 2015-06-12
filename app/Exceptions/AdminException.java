@@ -1,7 +1,9 @@
 package Exceptions;
 
+import models.Activity;
 import models.Admin;
 import models.Course;
+import models.Semester;
 
 /**
  * Created by Asus on 07/06/2015.
@@ -24,6 +26,10 @@ public class AdminException extends Exception {
 
     public AdminException(Course course,String idAdmin,String cause){
         super("El administrador con email "+idAdmin+cause+"en el curso "+course.getName()+" con código "+course.getCode()+".");
+    }
+
+    public AdminException(Activity activity,String idAdmin,String cause){
+        super("El administrador con email "+idAdmin+cause+"en la actividad "+activity.getName()+".");
     }
 
 }
