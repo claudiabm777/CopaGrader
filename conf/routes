@@ -73,7 +73,17 @@ POST    /bullet/delete              controllers.BulletController.deleteBullet()
 POST    /mCriterion/edit            controllers.MajorCriterionController.editMajorCriterion()
 POST    /mCriterion/delete          controllers.MajorCriterionController.deleteMajorCriterion()
 #######################################################################################################################
-# CRITERION
+# CRITERION: /criterion
+POST    /criterion/edit             controllers.CriterionController.editCriterion()
+POST    /criterion/delete           controllers.CriterionController.deleteCriterion()
+#######################################################################################################################
+# OPTION: /option
+POST    /option/edit                controllers.OptionController.editOption()
+POST    /option/delete              controllers.OptionController.deleteOption()
+#######################################################################################################################
+
+#######################################################################################################################
+
 #######################################################################################################################
 
 #######################################################################################################################
