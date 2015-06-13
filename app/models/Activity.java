@@ -2,6 +2,7 @@ package models;
 
 import Exceptions.AdminException;
 import Exceptions.ErrorMessage;
+import Exceptions.TaskException;
 import com.avaje.ebean.Model;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -145,17 +146,7 @@ public class Activity extends Model {
         adminsInCharge.add(newAdmin);
     }
 
-    public void addTask(Long idTask) throws Exception {
-        Task newTask=Task.find.byId(idTask);
-        if(newTask==null){
-            throw new Exception("El punto que se trata de agregar no existe.");
-        }
-        for(int i=0;i<tasks.size();i++){
-            if(tasks.get(i).getId()==newTask.getId())
-            {
-                throw new Exception("El punto que se esta tratando de agregar ya se había agregado.");
-            }
-        }
+    public void addTaskToActivity(Task newTask) throws Exception {
         tasks.add(newTask);
     }
 

@@ -4,6 +4,7 @@ import Exceptions.ActivityException;
 import Exceptions.ErrorMessage;
 import com.fasterxml.jackson.databind.JsonNode;
 import models.Activity;
+import models.Task;
 import play.*;
 import play.db.ebean.Transactional;
 import play.libs.Json;
@@ -17,9 +18,11 @@ import java.util.List;
  */
 public class ActivityController extends Controller {
     /**
-     *
+     *This method deletes an activity given an id
+     * The activity has to exist
      * @return
      */
+    @Transactional
     @BodyParser.Of(BodyParser.Json.class)
     public Result deleteActivity(){
         try {
@@ -36,7 +39,7 @@ public class ActivityController extends Controller {
     }
 
     /**
-     *
+     *This method edits
      * @return
      */
     @Transactional
@@ -85,6 +88,26 @@ public class ActivityController extends Controller {
                 throw new ActivityException(ErrorMessage.NOT_CREATED);
             }
             return ok(Json.toJson(activity));
+        }catch (Throwable e){
+            return badRequest(e.getMessage());
+        }
+    }
+
+    public Result addTaskToActivity(){
+        try{
+            String name = Controller.request().body().asJson().findPath("name").asText();
+            Long idActivity = Controller.request().body().asJson().findPath("idActivity").asLong();
+            Task task=new Task(name);
+            Activity activity=Activity.find.byId(idActivity);
+            if(activity==null){
+                throw new ActivityException( ErrorMessage.NOT_CREATED);
+            }
+            if(task==null){
+                throw new ActivityException( ErrorMessage.NOT_CREATED);
+            }
+            activity.addTaskToActivity(task);
+            activity.save();
+            return ok();
         }catch (Throwable e){
             return badRequest(e.getMessage());
         }
