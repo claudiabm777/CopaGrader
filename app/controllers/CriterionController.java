@@ -51,6 +51,7 @@ public class CriterionController extends Controller {
         }
     }
 
+    @BodyParser.Of(BodyParser.Json.class)
     public Result addOptionToCriterion(){
         try{
             JsonNode j = Controller.request().body().asJson();
@@ -71,6 +72,7 @@ public class CriterionController extends Controller {
         }
     }
 
+    @BodyParser.Of(BodyParser.Json.class)
     public Result addClaimToCriterion(){
         try {
             Long idCriterion = Controller.request().body().asJson().findPath("idCriterion").asLong();

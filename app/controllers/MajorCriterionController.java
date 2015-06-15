@@ -47,6 +47,7 @@ public class MajorCriterionController extends Controller {
         }
     }
 
+    @BodyParser.Of(BodyParser.Json.class)
     public Result addCriterionToMajorCriterion(){
         try{
             String description = Controller.request().body().asJson().findPath("description").asText();

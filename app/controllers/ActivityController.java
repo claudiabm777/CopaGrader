@@ -97,6 +97,7 @@ public class ActivityController extends Controller {
      *
      * @return
      */
+    @BodyParser.Of(BodyParser.Json.class)
     public Result addTaskToActivity(){
         try{
             String name = Controller.request().body().asJson().findPath("name").asText();

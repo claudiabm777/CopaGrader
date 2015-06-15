@@ -47,7 +47,7 @@ public class BulletController extends Controller {
             return badRequest(e.getMessage());
         }
     }
-
+    @BodyParser.Of(BodyParser.Json.class)
     public Result addMajorCriterionToBullet(){
         try{
             String description = Controller.request().body().asJson().findPath("description").asText();

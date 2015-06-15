@@ -12,7 +12,7 @@ import views.html.*;
  */
 public class ClaimController extends Controller {
 
-
+    @BodyParser.Of(BodyParser.Json.class)
     public Result deleteClaim(){
         try {
             Long idClaim = Controller.request().body().asJson().findPath("idClaim").asLong();

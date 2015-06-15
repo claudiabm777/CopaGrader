@@ -47,6 +47,7 @@ public class TaskController extends Controller {
         }
     }
 
+    @BodyParser.Of(BodyParser.Json.class)
     public Result addBulletToTask(){
         try{
             String description = Controller.request().body().asJson().findPath("description").asText();
