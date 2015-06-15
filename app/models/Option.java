@@ -1,6 +1,7 @@
 package models;
 
 import com.avaje.ebean.Model;
+import com.fasterxml.jackson.databind.JsonNode;
 
 import javax.persistence.*;
 import java.util.DoubleSummaryStatistics;
@@ -23,7 +24,6 @@ public class Option extends Model {
     private Double score;
     private Boolean isSelected;
     private Boolean isPenalty;
-
 
     public static Finder<Long,Option> find = new Finder<Long,Option>(
             Long.class, Option.class
@@ -84,4 +84,14 @@ public class Option extends Model {
         this.score = score;
     }
 
+    //--------------------------------------------------------------------------------------------------------------------------
+    //Methods-------------------------------------------------------------------------------------------------------------------
+    //--------------------------------------------------------------------------------------------------------------------------
+    public static Option transformJson(JsonNode j){
+        String description=j.findPath("description").asText();
+        Double score=j.findPath("score").asDouble();
+        Boolean isPenalty=j.findPath("isPenalty").asBoolean();
+        Option option=new Option(description,score,isPenalty);
+        return option;
+    }
 }

@@ -38,11 +38,11 @@ public class Criterion extends Model {
     //--------------------------------------------------------------------------------------------------------------------------
     //Constructor---------------------------------------------------------------------------------------------------------------
     //--------------------------------------------------------------------------------------------------------------------------
-    public Criterion(String description, Claim claim){
+    public Criterion(String description){
         this.optionRequests=new ArrayList<OptionRequest>();
         this.options=new ArrayList<Option>();
         this.description=description;
-        this.claim=claim;
+
     }
 
     //--------------------------------------------------------------------------------------------------------------------------
@@ -71,7 +71,7 @@ public class Criterion extends Model {
     //Methods-------------------------------------------------------------------------------------------------------------------
     //--------------------------------------------------------------------------------------------------------------------------
 
-    public void addOptionToBullet(Option option){
+    public void addOptionToCriterion(Option option){
         options.add(option);
     }
 }

@@ -2,8 +2,10 @@ package controllers;
 
 import Exceptions.CriterionException;
 import Exceptions.ErrorMessage;
+import Exceptions.OptionException;
 import com.fasterxml.jackson.databind.JsonNode;
 import models.Criterion;
+import models.Option;
 import play.*;
 import play.mvc.*;
 import views.html.*;
@@ -40,6 +42,26 @@ public class CriterionController extends Controller {
                 throw new CriterionException( ErrorMessage.NOT_CREATED);
             }
             b.delete();
+            return ok();
+        }catch (Throwable e){
+            return badRequest(e.getMessage());
+        }
+    }
+
+    public Result addOptionToCriterion(){
+        try{
+            JsonNode j = Controller.request().body().asJson();
+            Long idCriterion = Controller.request().body().asJson().findPath("idCriterion").asLong();
+            Option option=Option.transformJson(j);
+            Criterion criterion=Criterion.find.byId(idCriterion);
+            if(criterion==null){
+                throw new CriterionException( ErrorMessage.NOT_CREATED);
+            }
+            if(option==null){
+                throw new OptionException( ErrorMessage.NOT_CREATED);
+            }
+            criterion.addOptionToCriterion(option);
+            criterion.save();
             return ok();
         }catch (Throwable e){
             return badRequest(e.getMessage());

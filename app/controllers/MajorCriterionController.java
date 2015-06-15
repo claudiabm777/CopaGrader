@@ -1,8 +1,10 @@
 package controllers;
 
+import Exceptions.CriterionException;
 import Exceptions.ErrorMessage;
 import Exceptions.MajorCriterionException;
 import com.fasterxml.jackson.databind.JsonNode;
+import models.Criterion;
 import models.MajorCriterion;
 import play.*;
 import play.mvc.*;
@@ -39,6 +41,26 @@ public class MajorCriterionController extends Controller {
                 throw new MajorCriterionException( ErrorMessage.NOT_CREATED);
             }
             b.delete();
+            return ok();
+        }catch (Throwable e){
+            return badRequest(e.getMessage());
+        }
+    }
+
+    public Result addCriterionToMajorCriterion(){
+        try{
+            String description = Controller.request().body().asJson().findPath("description").asText();
+            Long idMajorCriterion = Controller.request().body().asJson().findPath("idMajorCriterion").asLong();
+            Criterion criterion=new Criterion(description);
+            MajorCriterion majorCriterion=MajorCriterion.find.byId(idMajorCriterion);
+            if(majorCriterion==null){
+                throw new MajorCriterionException( ErrorMessage.NOT_CREATED);
+            }
+            if(criterion==null){
+                throw new CriterionException( ErrorMessage.NOT_CREATED);
+            }
+            majorCriterion.addCriterionToMajorCriterion(criterion);
+            majorCriterion.save();
             return ok();
         }catch (Throwable e){
             return badRequest(e.getMessage());

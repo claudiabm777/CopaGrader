@@ -65,18 +65,22 @@ POST    /grader/create              controllers.GraderController.createGrader()
 # TASK: /task
 POST    /task/edit                  controllers.TaskController.editTask()
 POST    /task/delete                controllers.TaskController.deleteTask()
+POST    /task/bullet/add            controllers.TaskController.addBulletToTask()
 #######################################################################################################################
 # BULLET: /bullet
 POST    /bullet/edit                controllers.BulletController.editBullet()
 POST    /bullet/delete              controllers.BulletController.deleteBullet()
+POST    /bullet/mCriterion/add      controllers.BulletController.addMajorCriterionToBullet()
 #######################################################################################################################
 # MAJOR_CRITERION: /mCriterion
 POST    /mCriterion/edit            controllers.MajorCriterionController.editMajorCriterion()
 POST    /mCriterion/delete          controllers.MajorCriterionController.deleteMajorCriterion()
+POST    /mCriterion/criterion/add   controllers.MajorCriterionController.addCriterionToMajorCriterion()
 #######################################################################################################################
 # CRITERION: /criterion
 POST    /criterion/edit             controllers.CriterionController.editCriterion()
 POST    /criterion/delete           controllers.CriterionController.deleteCriterion()
+POST    /criterion/option/add       controllers.CriterionController.addOptionToCriterion()
 #######################################################################################################################
 # OPTION: /option
 POST    /option/edit                controllers.OptionController.editOption()

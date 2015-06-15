@@ -1,8 +1,10 @@
 package controllers;
 
+import Exceptions.BulletException;
 import Exceptions.ErrorMessage;
 import Exceptions.TaskException;
 import com.fasterxml.jackson.databind.JsonNode;
+import models.Bullet;
 import models.Task;
 import play.*;
 import play.mvc.*;
@@ -39,6 +41,26 @@ public class TaskController extends Controller {
                 throw new TaskException( ErrorMessage.NOT_CREATED);
             }
             t.delete();
+            return ok();
+        }catch (Throwable e){
+            return badRequest(e.getMessage());
+        }
+    }
+
+    public Result addBulletToTask(){
+        try{
+            String description = Controller.request().body().asJson().findPath("description").asText();
+            Long idTask = Controller.request().body().asJson().findPath("idTask").asLong();
+            Bullet bullet=new Bullet(description);
+            Task task=Task.find.byId(idTask);
+            if(task==null){
+                throw new TaskException( ErrorMessage.NOT_CREATED);
+            }
+            if(bullet==null){
+                throw new BulletException( ErrorMessage.NOT_CREATED);
+            }
+            task.addBulletToTask(bullet);
+            task.save();
             return ok();
         }catch (Throwable e){
             return badRequest(e.getMessage());
