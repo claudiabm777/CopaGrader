@@ -93,6 +93,10 @@ public class ActivityController extends Controller {
         }
     }
 
+    /**
+     *
+     * @return
+     */
     public Result addTaskToActivity(){
         try{
             String name = Controller.request().body().asJson().findPath("name").asText();
