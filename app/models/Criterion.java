@@ -56,6 +56,18 @@ public class Criterion extends Model {
         return description;
     }
 
+    public Claim getClaim() {
+        return claim;
+    }
+
+    public List<Option> getOptions() {
+        return options;
+    }
+
+    public List<OptionRequest> getOptionRequests() {
+        return optionRequests;
+    }
+
     //--------------------------------------------------------------------------------------------------------------------------
     //Setters-------------------------------------------------------------------------------------------------------------------
     //--------------------------------------------------------------------------------------------------------------------------
@@ -67,6 +79,17 @@ public class Criterion extends Model {
         this.id = id;
     }
 
+    public void setClaim(Claim claim) {
+        this.claim = claim;
+    }
+
+    public void setOptionRequests(List<OptionRequest> optionRequests) {
+        this.optionRequests = optionRequests;
+    }
+
+    public void setOptions(List<Option> options) {
+        this.options = options;
+    }
     //--------------------------------------------------------------------------------------------------------------------------
     //Methods-------------------------------------------------------------------------------------------------------------------
     //--------------------------------------------------------------------------------------------------------------------------
