@@ -6,6 +6,7 @@ import com.avaje.ebean.Ebean;
 import com.fasterxml.jackson.databind.JsonNode;
 import models.Course;
 import models.Semester;
+import play.db.ebean.Transactional;
 import play.libs.Json;
 import play.mvc.*;
 
@@ -23,6 +24,7 @@ public class CourseController extends Controller {
      * <b>post:</b>The course was created successfully.
      * @return result ok() if everything is ok, or badRequest if there was any problem.
      */
+    @Transactional
     @BodyParser.Of(BodyParser.Json.class)
     public Result createCourse() {
         try {
@@ -43,6 +45,7 @@ public class CourseController extends Controller {
      * This method gets all the courses in the system.<br>
      * @return ok() with the json with the list of courses if everything is ok, or badRequest() if there was a problem.<br>
      */
+    @Transactional
     public Result getCourses(){
         try{
             List<Course> courses=Course.find.all();
@@ -56,6 +59,7 @@ public class CourseController extends Controller {
      * This method deletes a course by id.<br>
      * @return Result depending if the transaction was successful or not
      */
+    @Transactional
     @BodyParser.Of(BodyParser.Json.class)
     public Result deleteCourseId(){
         try {
@@ -76,6 +80,7 @@ public class CourseController extends Controller {
      * This method gets a course by id.<br>
      * @return Result
      */
+    @Transactional
     @BodyParser.Of(BodyParser.Json.class)
     public Result getCourseId(){
         try {
@@ -94,6 +99,7 @@ public class CourseController extends Controller {
      * This method adds a semester to a course. Both they have to be created in the system.
      * @return Result
      */
+    @Transactional
     @BodyParser.Of(BodyParser.Json.class)
     public Result addSemesterToCourse(){
         try{
@@ -118,6 +124,8 @@ public class CourseController extends Controller {
      * The Json has idSemester, idCourse and the newPeriod.
      * @return
      */
+    @Transactional
+    @BodyParser.Of(BodyParser.Json.class)
     public Result editSemesterFromCourse(){
         try {
             Long idSemester = Controller.request().body().asJson().findPath("idSemester").asLong();
@@ -140,6 +148,7 @@ public class CourseController extends Controller {
      * The information received throw the json have to be ok.
      * @return Result
      */
+    @Transactional
     @BodyParser.Of(BodyParser.Json.class)
     public Result deleteSemesterFromCourse(){
         try {
@@ -163,6 +172,7 @@ public class CourseController extends Controller {
      * If the course have not semesters, returns an ok whit an empty json.
      * @return
      */
+    @Transactional
     @BodyParser.Of(BodyParser.Json.class)
     public Result getSemestersFromCourse(){
         try{
@@ -182,6 +192,7 @@ public class CourseController extends Controller {
      * This method gets a semester from a course.
      * @return
      */
+    @Transactional
     @BodyParser.Of(BodyParser.Json.class)
     public Result getASemesterFromCourse(){
         try {
@@ -201,6 +212,7 @@ public class CourseController extends Controller {
      * This method edits the basic information of a course.
      * @return Result
      */
+    @Transactional
     @BodyParser.Of(BodyParser.Json.class)
     public Result editCourse(){
         try {
@@ -214,7 +226,6 @@ public class CourseController extends Controller {
             if((!course.getCode().equals(oldId))&&(Course.find.byId(course.getCode())!=null)){
                 throw new CourseException(CourseException.CODE_REPEATED);
             }
-            Ebean.execute(() -> {
                 course1.setCredits(course.getCredits());
                 course1.setCrn(course.getCrn());
                 course1.setDepartment(course.getDepartment());
@@ -224,7 +235,7 @@ public class CourseController extends Controller {
                         .setParameter("code", course.getCode())
                         .setParameter("id", oldId)
                         .execute();
-            });
+
             return ok();
         }catch (Throwable e){
             return badRequest(e.getMessage());

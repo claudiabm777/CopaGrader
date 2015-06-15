@@ -7,6 +7,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import models.Criterion;
 import models.MajorCriterion;
 import play.*;
+import play.db.ebean.Transactional;
 import play.mvc.*;
 import views.html.*;
 /**
@@ -14,6 +15,11 @@ import views.html.*;
  */
 public class MajorCriterionController extends Controller {
 
+    /**
+     *
+     * @return
+     */
+    @Transactional
     @BodyParser.Of(BodyParser.Json.class)
     public Result editMajorCriterion(){
         try{
@@ -32,6 +38,11 @@ public class MajorCriterionController extends Controller {
         }
     }
 
+    /**
+     *
+     * @return
+     */
+    @Transactional
     @BodyParser.Of(BodyParser.Json.class)
     public Result deleteMajorCriterion(){
         try{
@@ -47,6 +58,11 @@ public class MajorCriterionController extends Controller {
         }
     }
 
+    /**
+     *
+     * @return
+     */
+    @Transactional
     @BodyParser.Of(BodyParser.Json.class)
     public Result addCriterionToMajorCriterion(){
         try{

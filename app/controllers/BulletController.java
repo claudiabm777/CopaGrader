@@ -10,11 +10,17 @@ import com.fasterxml.jackson.databind.JsonNode;
 import models.Bullet;
 import models.MajorCriterion;
 import play.*;
+import play.db.ebean.Transactional;
 import play.mvc.*;
 import views.html.*;
 
 public class BulletController extends Controller {
 
+    /**
+     *
+     * @return
+     */
+    @Transactional
     @BodyParser.Of(BodyParser.Json.class)
     public Result editBullet(){
         try{
@@ -33,6 +39,11 @@ public class BulletController extends Controller {
         }
     }
 
+    /**
+     *
+     * @return
+     */
+    @Transactional
     @BodyParser.Of(BodyParser.Json.class)
     public Result deleteBullet(){
         try{
@@ -47,6 +58,12 @@ public class BulletController extends Controller {
             return badRequest(e.getMessage());
         }
     }
+
+    /**
+     *
+     * @return
+     */
+    @Transactional
     @BodyParser.Of(BodyParser.Json.class)
     public Result addMajorCriterionToBullet(){
         try{

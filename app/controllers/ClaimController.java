@@ -4,6 +4,7 @@ import Exceptions.ClaimException;
 import Exceptions.ErrorMessage;
 import models.Claim;
 import play.*;
+import play.db.ebean.Transactional;
 import play.mvc.*;
 import views.html.*;
 
@@ -12,6 +13,11 @@ import views.html.*;
  */
 public class ClaimController extends Controller {
 
+    /**
+     *
+     * @return
+     */
+    @Transactional
     @BodyParser.Of(BodyParser.Json.class)
     public Result deleteClaim(){
         try {

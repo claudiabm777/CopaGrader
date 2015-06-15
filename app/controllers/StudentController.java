@@ -6,6 +6,7 @@ import com.avaje.ebean.Ebean;
 import com.fasterxml.jackson.databind.JsonNode;
 import models.Student;
 import play.*;
+import play.db.ebean.Transactional;
 import play.libs.Json;
 import play.mvc.*;
 import views.html.*;
@@ -20,6 +21,7 @@ public class StudentController extends Controller {
      *
      * @return
      */
+    @Transactional
     public Result getStudents(){
         try {
             List<Student>students=Student.find.all();
@@ -33,6 +35,7 @@ public class StudentController extends Controller {
      *
      * @return
      */
+    @Transactional
     @BodyParser.Of(BodyParser.Json.class)
     public Result getStudentId(){
         try{
@@ -51,6 +54,7 @@ public class StudentController extends Controller {
      *
      * @return
      */
+    @Transactional
     @BodyParser.Of(BodyParser.Json.class)
     public Result editStudentId(){
         try{
@@ -79,6 +83,7 @@ public class StudentController extends Controller {
      *
      * @return
      */
+    @Transactional
     @BodyParser.Of(BodyParser.Json.class)
     public Result deleteStudent(){
         try{

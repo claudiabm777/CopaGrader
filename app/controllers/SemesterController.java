@@ -10,6 +10,7 @@ import models.Grader;
 import models.Semester;
 import models.Student;
 import play.*;
+import play.db.ebean.Transactional;
 import play.libs.Json;
 import play.mvc.*;
 import views.html.*;
@@ -25,6 +26,7 @@ public class SemesterController extends Controller {
      * This method returns all semesters created in the system.
      * @return
      */
+    @Transactional
     public Result getSemesters(){
         try{
             List<Semester> semesters=Semester.find.all();
@@ -38,6 +40,7 @@ public class SemesterController extends Controller {
      *
      * @return
      */
+    @Transactional
     @BodyParser.Of(BodyParser.Json.class)
     public Result addActivityToSemester(){
         try{
@@ -64,6 +67,7 @@ public class SemesterController extends Controller {
      *
      * @return
      */
+    @Transactional
     @BodyParser.Of(BodyParser.Json.class)
     public Result addStudentToSemester(){
         try {
@@ -86,6 +90,7 @@ public class SemesterController extends Controller {
      *
      * @return
      */
+    @Transactional
     @BodyParser.Of(BodyParser.Json.class)
     public Result addGraderSemester(){
         try{
@@ -111,6 +116,7 @@ public class SemesterController extends Controller {
      *
      * @return
      */
+    @Transactional
     @BodyParser.Of(BodyParser.Json.class)
     public Result deleteGraderSemester(){
         try{

@@ -66,6 +66,7 @@ public class ActivityController extends Controller {
      *
      * @return
      */
+    @Transactional
     public Result getActivities(){
         try{
             List<Activity>activities=Activity.find.all();
@@ -79,6 +80,7 @@ public class ActivityController extends Controller {
      *
      * @return
      */
+    @Transactional
     @BodyParser.Of(BodyParser.Json.class)
     public Result getActivityId(){
         try{
@@ -97,6 +99,7 @@ public class ActivityController extends Controller {
      *
      * @return
      */
+    @Transactional
     @BodyParser.Of(BodyParser.Json.class)
     public Result addTaskToActivity(){
         try{

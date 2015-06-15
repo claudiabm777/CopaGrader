@@ -5,6 +5,7 @@ import Exceptions.OptionException;
 import com.fasterxml.jackson.databind.JsonNode;
 import models.Option;
 import play.*;
+import play.db.ebean.Transactional;
 import play.mvc.*;
 import views.html.*;
 /**
@@ -16,6 +17,7 @@ public class OptionController extends Controller {
      *
      * @return
      */
+    @Transactional
     @BodyParser.Of(BodyParser.Json.class)
     public Result editOption(){
         try{
@@ -42,6 +44,7 @@ public class OptionController extends Controller {
      *
      * @return
      */
+    @Transactional
     @BodyParser.Of(BodyParser.Json.class)
     public Result deleteOption(){
         try{

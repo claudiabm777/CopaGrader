@@ -150,6 +150,9 @@ public class Activity extends Model {
         tasks.add(newTask);
     }
 
+    public void addTeam(Team team){
+        teams.add(team);
+    }
     public static Activity transformJson(JsonNode j) throws Exception {
         String name = j.findPath("name").asText();
         Date deadline= new Date(j.findPath("deadline").asLong());

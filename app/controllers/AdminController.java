@@ -9,6 +9,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import models.Admin;
 import models.Course;
 import play.*;
+import play.db.ebean.Transactional;
 import play.libs.Json;
 import play.mvc.*;
 import views.html.*;
@@ -23,6 +24,7 @@ public class AdminController extends  Controller {
      * This method creates a new admin in the system.
      * @return
      */
+    @Transactional
     @BodyParser.Of(BodyParser.Json.class)
     public Result createAdmin(){
         try {
@@ -43,6 +45,7 @@ public class AdminController extends  Controller {
      * This method gets all the admins in the system
      * @return
      */
+    @Transactional
     public Result getAdmins(){
         try {
             List<Admin> admin = Admin.find.all();
@@ -55,6 +58,7 @@ public class AdminController extends  Controller {
     /**
      * This method gets an admin in the system by id (email).
      */
+    @Transactional
     @BodyParser.Of(BodyParser.Json.class)
     public Result getAnAdminId(){
         try {
@@ -74,6 +78,7 @@ public class AdminController extends  Controller {
      *
      * @return
      */
+    @Transactional
     @BodyParser.Of(BodyParser.Json.class)
     public Result editAdmin(){
         try {
@@ -87,7 +92,6 @@ public class AdminController extends  Controller {
             if((!admin.getEmail().equals(oldId))&&(Admin.find.byId(admin.getEmail())!=null)){
                 throw new AdminException(AdminException.CODE_REPEATED);
             }
-            Ebean.execute(() -> {
                 admin1.setIdentityCard(admin.getIdentityCard());
                 admin1.setLastNames(admin.getLastNames());
                 admin1.setNames(admin.getNames());
@@ -97,7 +101,7 @@ public class AdminController extends  Controller {
                         .setParameter("email", admin.getEmail())
                         .setParameter("id", oldId)
                         .execute();
-            });
+
             return ok();
         }catch (Throwable e){
             return badRequest(e.getMessage());
@@ -108,6 +112,7 @@ public class AdminController extends  Controller {
      *
      * @return
      */
+    @Transactional
     @BodyParser.Of(BodyParser.Json.class)
     public Result deleteAdminId(){
         try {
@@ -128,6 +133,7 @@ public class AdminController extends  Controller {
      *
      * @return
      */
+    @Transactional
     @BodyParser.Of(BodyParser.Json.class)
     public Result addCourseAdmin(){
         try {
@@ -153,6 +159,7 @@ public class AdminController extends  Controller {
      *
      * @return
      */
+    @Transactional
     @BodyParser.Of(BodyParser.Json.class)
     public Result deleteCourseAdmin(){
         try{

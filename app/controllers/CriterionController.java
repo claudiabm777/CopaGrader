@@ -7,6 +7,7 @@ import models.Claim;
 import models.Criterion;
 import models.Option;
 import play.*;
+import play.db.ebean.Transactional;
 import play.mvc.*;
 import views.html.*;
 
@@ -18,6 +19,11 @@ import java.util.Date;
 
 public class CriterionController extends Controller {
 
+    /**
+     *
+     * @return
+     */
+    @Transactional
     @BodyParser.Of(BodyParser.Json.class)
     public Result editCriterion(){
         try{
@@ -36,6 +42,11 @@ public class CriterionController extends Controller {
         }
     }
 
+    /**
+     *
+     * @return
+     */
+    @Transactional
     @BodyParser.Of(BodyParser.Json.class)
     public Result deleteCriterion(){
         try{
@@ -51,6 +62,11 @@ public class CriterionController extends Controller {
         }
     }
 
+    /**
+     *
+     * @return
+     */
+    @Transactional
     @BodyParser.Of(BodyParser.Json.class)
     public Result addOptionToCriterion(){
         try{
@@ -72,6 +88,11 @@ public class CriterionController extends Controller {
         }
     }
 
+    /**
+     *
+     * @return
+     */
+    @Transactional
     @BodyParser.Of(BodyParser.Json.class)
     public Result addClaimToCriterion(){
         try {

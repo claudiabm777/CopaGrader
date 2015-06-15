@@ -7,6 +7,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import models.Bullet;
 import models.Task;
 import play.*;
+import play.db.ebean.Transactional;
 import play.mvc.*;
 import views.html.*;
 /**
@@ -14,6 +15,11 @@ import views.html.*;
  */
 public class TaskController extends Controller {
 
+    /**
+     *
+     * @return
+     */
+    @Transactional
     @BodyParser.Of(BodyParser.Json.class)
     public Result editTask(){
         try{
@@ -32,6 +38,11 @@ public class TaskController extends Controller {
         }
     }
 
+    /**
+     *
+     * @return
+     */
+    @Transactional
     @BodyParser.Of(BodyParser.Json.class)
     public Result deleteTask(){
         try{
@@ -47,6 +58,11 @@ public class TaskController extends Controller {
         }
     }
 
+    /**
+     *
+     * @return
+     */
+    @Transactional
     @BodyParser.Of(BodyParser.Json.class)
     public Result addBulletToTask(){
         try{

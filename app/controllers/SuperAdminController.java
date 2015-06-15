@@ -8,6 +8,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import models.Course;
 import models.SuperAdmin;
 import play.*;
+import play.db.ebean.Transactional;
 import play.libs.Json;
 import play.mvc.*;
 import views.html.*;
@@ -22,6 +23,7 @@ public class SuperAdminController extends Controller {
      * This method creates a super admin in the system.
      * @return
      */
+    @Transactional
     @BodyParser.Of(BodyParser.Json.class)
     public Result createSuperAdmin(){
         try {
@@ -42,6 +44,7 @@ public class SuperAdminController extends Controller {
      * This method gets all the super admins in the system.
      * @return
      */
+    @Transactional
     public Result getSuperAdmins(){
         try {
             List<SuperAdmin> superAdmins = SuperAdmin.find.all();
@@ -55,6 +58,7 @@ public class SuperAdminController extends Controller {
      * This method get a super admin by id (email).
      * @return
      */
+    @Transactional
     @BodyParser.Of(BodyParser.Json.class)
     public Result getASuperAdminId(){
         try {
@@ -73,6 +77,7 @@ public class SuperAdminController extends Controller {
      * This method edits the information of a super admin.
      * @return
      */
+    @Transactional
     @BodyParser.Of(BodyParser.Json.class)
     public Result editSuperAdmin(){
         try {
@@ -86,7 +91,6 @@ public class SuperAdminController extends Controller {
             if((!superAdmin.getEmail().equals(oldId))&&(SuperAdmin.find.byId(superAdmin.getEmail())!=null)){
                 throw new SuperAdminException(SuperAdminException.CODE_REPEATED);
             }
-            Ebean.execute(() -> {
                 superAdmin1.setIdentityCard(superAdmin.getIdentityCard());
                 superAdmin1.setLastNames(superAdmin.getLastNames());
                 superAdmin1.setNames(superAdmin.getNames());
@@ -96,7 +100,7 @@ public class SuperAdminController extends Controller {
                         .setParameter("email", superAdmin.getEmail())
                         .setParameter("id", oldId)
                         .execute();
-            });
+
             return ok();
         }catch (Throwable e){
             return badRequest(e.getMessage());
@@ -107,6 +111,7 @@ public class SuperAdminController extends Controller {
      * This method deletes a super admin by id.
      * @return
      */
+    @Transactional
     @BodyParser.Of(BodyParser.Json.class)
     public Result deleteSuperAdminId(){
         try {

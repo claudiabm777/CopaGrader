@@ -123,6 +123,11 @@ public class Grader extends Model {
     //--------------------------------------------------------------------------------------------------------------------------
     //Methods-------------------------------------------------------------------------------------------------------------------
     //--------------------------------------------------------------------------------------------------------------------------
+
+    public void addTeam(Team team){
+        teams.add(team);
+    }
+
     public static Grader transformJson(JsonNode j){
         String names = j.findPath("names").asText();
         String lastNames = j.findPath("lastNames").asText();

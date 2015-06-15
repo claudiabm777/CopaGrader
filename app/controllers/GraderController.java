@@ -6,6 +6,7 @@ import com.avaje.ebean.Ebean;
 import com.fasterxml.jackson.databind.JsonNode;
 import models.Grader;
 import play.*;
+import play.db.ebean.Transactional;
 import play.libs.Json;
 import play.mvc.*;
 import views.html.*;
@@ -21,6 +22,7 @@ public class GraderController extends Controller {
      *
      * @return
      */
+    @Transactional
     @BodyParser.Of(BodyParser.Json.class)
     public Result createGrader(){
         try {
@@ -41,6 +43,7 @@ public class GraderController extends Controller {
      *
      * @return
      */
+    @Transactional
     public Result getGraders(){
         try {
             List<Grader> grader = Grader.find.all();
@@ -54,6 +57,7 @@ public class GraderController extends Controller {
      *
      * @return
      */
+    @Transactional
     @BodyParser.Of(BodyParser.Json.class)
     public Result getGraderId(){
         try {
@@ -72,6 +76,7 @@ public class GraderController extends Controller {
      *
      * @return
      */
+    @Transactional
     @BodyParser.Of(BodyParser.Json.class)
     public Result editGrader(){
         try {
@@ -85,7 +90,6 @@ public class GraderController extends Controller {
             if((!grader.getEmail().equals(oldId))&&(Grader.find.byId(grader.getEmail())!=null)){
                 throw new GraderException(GraderException.CODE_REPEATED);
             }
-            Ebean.execute(() -> {
                 grader1.setIdentityCard(grader.getIdentityCard());
                 grader1.setLastNames(grader.getLastNames());
                 grader1.setNames(grader.getNames());
@@ -96,7 +100,7 @@ public class GraderController extends Controller {
                         .setParameter("email", grader.getEmail())
                         .setParameter("id", oldId)
                         .execute();
-            });
+
             return ok();
         }catch (Throwable e){
             return badRequest(e.getMessage());
@@ -107,6 +111,7 @@ public class GraderController extends Controller {
      *
      * @return
      */
+    @Transactional
     @BodyParser.Of(BodyParser.Json.class)
     public Result deleteGrader(){
         try {
