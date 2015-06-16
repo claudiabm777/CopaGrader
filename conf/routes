@@ -95,7 +95,7 @@ POST    /team/add                   controllers.TeamController.addTeam()
 POST    /team/delete                controllers.TeamController.deleteTeam()
 POST    /team/edit                  controllers.TeamController.editTeam()
 #######################################################################################################################
-
+GET     /email                      controllers.OptionRequestController.sendEmail()
 #######################################################################################################################
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)

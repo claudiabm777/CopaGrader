@@ -97,4 +97,7 @@ public class Criterion extends Model {
     public void addOptionToCriterion(Option option){
         options.add(option);
     }
+    public void addOptionRequest(OptionRequest optionRequest){
+        optionRequests.add(optionRequest);
+    }
 }
