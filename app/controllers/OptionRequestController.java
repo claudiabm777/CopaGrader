@@ -4,6 +4,7 @@ import Exceptions.ActivityException;
 import Exceptions.CriterionException;
 import Exceptions.ErrorMessage;
 import Exceptions.GraderException;
+
 import com.avaje.ebean.Ebean;
 import models.*;
 import play.*;
@@ -65,23 +66,17 @@ public class OptionRequestController extends Controller {
 
     public Result sendEmail(){//String idAdmin,OptionRequest optionRequest) {
         Email email = new Email();
-        email.setSubject("Nueva solicitud para agregar una opción a un criterio.");
+        email.setSubject(MailMessages.NEW_REQUEST);
         email.setFrom("CopaGrader <copa.grader@gmail.com>");
         email.addTo("TO <cd.bedoya212@uniandes.edu.co>");
         // adds attachment
-        email.addAttachment("favicon.png", new File(Play.application().classloader().getResource("public/images/favicon.png").getPath()));
+        //email.addAttachment("favicon.png", new File(Play.application().classloader().getResource("public/images/favicon.png").getPath()));
         // adds inline attachment from byte array
-        email.addAttachment("data.txt", "data".getBytes(), "text/plain", "Simple data", EmailAttachment.INLINE);
+        //email.addAttachment("data.txt", "data".getBytes(), "text/plain", "Simple data", EmailAttachment.INLINE);
         // sends text, HTML or both...
-        email.setBodyText("A text message");
-        email.setBodyHtml("<html>\n" +
-                "<body>\n" +
-                "\n" +
-                "<h1 style=\"color:#00BFFF\">This is a heading</h1>\n" +
-                "<p style=\"color:red\">This is a paragraph.</p>\n" +
-                "\n" +
-                "</body>\n" +
-                "</html>");
+        String body =views.html.notasMail.render("").body();
+        email.setBodyHtml(body);
+
         mailerClient.send(email);
         return ok();
     }
