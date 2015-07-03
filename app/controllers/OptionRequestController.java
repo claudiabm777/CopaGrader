@@ -4,7 +4,6 @@ import Exceptions.ActivityException;
 import Exceptions.CriterionException;
 import Exceptions.ErrorMessage;
 import Exceptions.GraderException;
-
 import com.avaje.ebean.Ebean;
 import models.*;
 import play.*;
@@ -13,12 +12,10 @@ import play.mvc.*;
 import views.html.*;
 import play.libs.mailer.Email;
 import play.api.libs.mailer.MailerClient;
-
 import java.io.File;
 import java.util.Date;
 import java.util.List;
 import org.apache.commons.mail.EmailAttachment;
-
 import javax.inject.Inject;
 
 /**
@@ -76,9 +73,7 @@ public class OptionRequestController extends Controller {
         // sends text, HTML or both...
         String body =views.html.notasMail.render("").body();
         email.setBodyHtml(body);
-
         mailerClient.send(email);
         return ok();
     }
 }
-
