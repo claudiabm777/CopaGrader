@@ -137,7 +137,7 @@ create table task (
 
 create table team (
   id                        bigint auto_increment not null,
-  grader_email              varchar(255) not null,
+  activity_id               bigint not null,
   name                      varchar(255),
   constraint pk_team primary key (id))
 ;
@@ -200,8 +200,8 @@ alter table student add constraint fk_student_semester_12 foreign key (semester_
 create index ix_student_semester_12 on student (semester_id);
 alter table task add constraint fk_task_activity_13 foreign key (activity_id) references activity (id) on delete restrict on update restrict;
 create index ix_task_activity_13 on task (activity_id);
-alter table team add constraint fk_team_grader_14 foreign key (grader_email) references grader (email) on delete restrict on update restrict;
-create index ix_team_grader_14 on team (grader_email);
+alter table team add constraint fk_team_activity_14 foreign key (activity_id) references activity (id) on delete restrict on update restrict;
+create index ix_team_activity_14 on team (activity_id);
 
 
 

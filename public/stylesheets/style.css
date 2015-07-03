@@ -201,6 +201,12 @@ ul a:focus {
   margin: 0 0 2em;
   font-family: FredokaOne-Regular;
 }
+.Feature h2 {
+ font-size: 3em;
+  color: #000;
+  margin: 0 0 2em;
+  font-family: FredokaOne-Regular;
+}
 i.con1 {
   width: 96px;
   height: 93px;
@@ -256,6 +262,13 @@ background-size: cover;
 .advantages-left {
   padding: 4em 12em;
 }
+.advantages h3 {
+  font-size: 2em;
+  color: #fffff5;
+  margin: 0 0 2em;
+  font-family: FredokaOne-Regular;
+}
+
 .advantages h3 {
   font-size: 2em;
   color: #fffff5;
