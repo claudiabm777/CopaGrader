@@ -5,6 +5,7 @@
 # HOME PAGE
 # This is the route to de home page
 GET     /                           controllers.Application.index()
+POST     /                           controllers.Application.index2()
 
 #######################################################################################################################
 # COURSES: /courses

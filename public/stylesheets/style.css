@@ -195,6 +195,15 @@ ul a:focus {
   margin: 1em 0;
   font-family: 'Open Sans', sans-serif;
 }
+
+.Feature h4 {
+  font-size: 2em;
+  color: #000;
+  line-height: 1.8em;
+  margin: 1em 0;
+  font-family: 'Open Sans', sans-serif;
+}
+
 .Feature h3 {
  font-size: 2em;
   color: #000;
@@ -221,7 +230,6 @@ i.con1 {
   background:#fffff0;
 }
 .advantages-right{
-background: url(../images/2.jpg)no-repeat 0px 0px;
 background-size: cover;
 	-webkit-background-size: cover;
 	-moz-background-size: cover;
@@ -247,7 +255,7 @@ background-size: cover;
   width: 85%;
 }
 .advantages h4 {
-  color: #000;
+  color: #fffff0;
   font-size: 1.5em;
   margin: 0;
   font-family: FredokaOne-Regular;
@@ -256,7 +264,7 @@ background-size: cover;
   font-size: 1em;
   color: #999;
   line-height: 1.8em;
-  margin: 1em 0;
+  margin: 0.5em 0;
   font-family: 'Open Sans', sans-serif;
 }
 .advantages-left {
@@ -279,7 +287,7 @@ background-size: cover;
 .advantages h2 {
   font-size: 3em;
   color: #fffff5;
-  margin: 0 0 2em;
+  margin: 0 0 1em;
   font-family: FredokaOne-Regular;
 }
 .our {
@@ -288,7 +296,7 @@ background-size: cover;
   padding: 5em 0;
 }
 .our h3 {
-  font-size: 2em;
+  font-size: 3em;
   color: #000;
   margin: 0 0 3em;
   font-family: FredokaOne-Regular;
@@ -353,7 +361,7 @@ text-align:center;
   font-family: 'Open Sans', sans-serif;
 }
 .news form input[type="submit"] {
-  background: #28EDE6;
+  background: #B2B0AF;
   padding:1em;
   color: #000;
   font-size: 1em;
@@ -365,11 +373,12 @@ text-align:center;
   font-family: 'Open Sans', sans-serif;
 }
 .news form input[type="submit"]:hover{
-  background:#F9FC63;  
+  background:#B2FFFF;
 }
 .button {
-  float: right;
-  width: 26%;
+
+   -webkit-align-items: center !important;
+
 }
 .name {
   float: left;
@@ -380,7 +389,7 @@ text-align:center;
   margin: 0 auto;
 }
 .news h3 {
-  font-size: 2em;
+  font-size: 3em;
   color: #000;
   margin: 0 0 2em;
   font-family: FredokaOne-Regular;
@@ -459,19 +468,18 @@ i.beh:hover{
   background-color: #28EDE6;
 }
 .footer h3 {
-  font-size: 2em;
+  font-size: 1.5em;
   color: #000;
-  margin: 0 auto 1em;
+  margin: 0 auto 0.5em;
   border-bottom: 3px solid #000;
-  padding: 0 0 1em;
   width: 33%;
   font-family: FredokaOne-Regular;
 }
 .footer p {
-  font-size: 1em;
+  font-size: 0.8em;
   color: #000;
   line-height: 1.8em;
-  margin: 1em 0;
+  margin: 0em 0;
   font-family: 'Open Sans', sans-serif;
 }
 .footer a{
@@ -509,10 +517,10 @@ i.beh:hover{
   padding: 1em 0;
 }
 .footer h6 {
-  font-size: 1.4em;
+  font-size: 1em;
   color: #000;
   line-height: 1.8em;
-  margin: 1em 0;
+  margin: 0em 0;
   font-family: 'Open Sans', sans-serif;
 }
 /*-- responsive-mediaquries --*/
@@ -884,7 +892,7 @@ i.beh:hover{
   padding: 0;
 }
 .our h3 {
-  font-size: 1.5em;
+  font-size: 3em;
 }
 .our span {
   font-size: 1.2em;
@@ -896,7 +904,7 @@ i.beh:hover{
   font-size: 0.875em;
 }
 .news h3 {
-  font-size: 1.5em;
+  font-size: 2em;
 }
 .news p {
   font-size: 0.875em;
@@ -911,8 +919,8 @@ i.beh:hover{
   width: 100%;
 }
 .button {
-  float: right;
-  width: 36%;
+ -webkit-align-items: center !important;
+
   margin: 1em 0 0;
 }
 .news form input[type="submit"] {
@@ -1023,4 +1031,7 @@ i.beh:hover {
 .head-nav ul li a {
   font-size: 0.9em;
 }
+
+
+
 }
