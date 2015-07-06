@@ -5,8 +5,8 @@
 # HOME PAGE
 # This is the route to de home page
 GET     /                           controllers.Application.index()
-POST     /                           controllers.Application.index2()
-
+POST     /                          controllers.Application.index2()
+GET    /login                      controllers.Application.login()
 #######################################################################################################################
 # COURSES: /courses
 POST    /courses/create             controllers.CourseController.createCourse()

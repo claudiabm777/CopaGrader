@@ -12,6 +12,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     <title>Pana A Corporate Business Category Flat Bootstarp Resposive Website Template | Home :: w3layouts</title>
     <link rel="stylesheet" type="text/css" media="all" href="@routes.Assets.versioned("stylesheets/bootstrap.css")"  >
     <link rel="stylesheet" type="text/css" media="all" href= "@routes.Assets.versioned("stylesheets/style.css")" />
+    <link rel="shortcut icon" type="image/png" href="@routes.Assets.versioned("images/favicon.png")">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="keywords" content="Pana Responsive web template, Bootstrap Web Templates, Flat Web Templates, Andriod Compatible web template,
@@ -61,7 +62,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 <li><a href="#home" class="scroll">Home</a></li>
                 <li><a href="#about" class="scroll">About</a></li>
                 <li><a href="#contact" class="scroll">Contact</a></li>
-                <li><a href="#services" class="scroll">Login</a></li>
+                <li><a href="/login" >Login</a></li>
                 <div class="clearfix"> </div>
             </ul>
         </div>
@@ -78,7 +79,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         <div class="banner-info">
 
             <div class="logo">
-                <h1><a class="text-logo" href="index.html">COPA GRADER</a></h1>
+                <h1><a class="text-logo">COPA GRADER</a></h1>
             </div>
             <div class="down-btn">
                 <a href="#contact" class="scroll"><img src="@routes.Assets.versioned("images/down.png")"  class="img-responsive" alt="" height="42" width="42"/></a>
@@ -121,7 +122,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             </div>
             <div class="col-md-3 service-left">
                 <img src="@routes.Assets.versioned("images/6.png")" class="img-responsive" alt="" />
-                <p>Se podrán calificar las actividades de manera fácil y estandarizada.  </p>
+                <p>Los monitroes y asistentes podrán calificar las actividades de manera estandarizada y fácil.  </p>
             </div>
             <div class="col-md-3 service-left">
                 <img src="@routes.Assets.versioned("images/7.png")" class="img-responsive" alt="" />
@@ -220,7 +221,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <div class="news" id="contact">
     <div class="container">
         <h3 style="color:#fffff0">Contáctanos</h3>
-        <p> Si deseascontactarnos por favor envía tu mensaje llenando todos los campos que se presentan a continuación. </p>
+        <p> Si deseas contactarnos por favor envía tu mensaje llenando todos los campos que se presentan a continuación. !Responderemos pronto tu mensaje! </p>
 
 
 
@@ -236,15 +237,21 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                     </div>
                 </div>
                 <div class="form-group">
-                    <label style="color:#B2B0AF;" class="control-label col-sm-2" for="pwd">Asunto:</label>
+                    <label style="color:#B2B0AF;" class="control-label col-sm-2" for="tx">Tu nombre:</label>
                     <div class="col-sm-10">
-                        <input type="password" class="form-control" id="pwd" placeholder="Enter password">
+                        <input name="tx" class="form-control" id="tx" placeholder="Enter name">
                     </div>
                 </div>
                 <div class="form-group">
-                    <label style="color:#B2B0AF;" class="control-label col-sm-2" for="pwd">Mensaje:</label>
+                    <label style="color:#B2B0AF;" class="control-label col-sm-2" for="tx">Asunto:</label>
                     <div class="col-sm-10">
-                        <textarea class="form-control" rows="6" id="comment" placeholder="Enter password"></textarea>
+                        <input name="sbj" class="form-control" id="tx" placeholder="Enter subject">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label style="color:#B2B0AF;" class="control-label col-sm-2" for="comment">Mensaje:</label>
+                    <div class="col-sm-10">
+                        <textarea name="message" class="form-control" rows="6" id="comment" placeholder="Enter password"></textarea>
                     </div>
                 </div>
                 <div class="form-group">
