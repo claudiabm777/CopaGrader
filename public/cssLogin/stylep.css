@@ -9,3 +9,32 @@
 	padding-left:35px;
 	font-size:1em;
 	}
+
+	.styled-select {
+    	font-family: 'Open Sans', sans-serif;
+    	text-align:left;
+    	padding-left:35px;
+    	font-size:1em;
+    	color: #fffff0 !important;
+        padding-top:20px;
+    	}
+    	.styled-select h6 {
+            	font-family: 'Open Sans', sans-serif;
+            	text-align:left;
+            	font-size:1em;
+            	color: #fffff0 !important;
+            	}
+
+	.styled-select select {
+
+       background: #3a3a46;
+       padding-left:10px;
+       width: 93%;
+       font-size: 1em;
+       line-height: 1;
+       border: 0;
+       border-radius: 0;
+       height: 34px;
+       color: #B4B4B4;
+       -webkit-appearance: none;
+       }
