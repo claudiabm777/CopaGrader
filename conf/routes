@@ -9,7 +9,8 @@ POST    /                           controllers.Application.index2()
 GET     /login                      controllers.Application.login()
 POST    /el                         controllers.Application.enterLogin()
 GET     /homeA                      controllers.Application.homeAdmin()
-GET     /homeG                      controllers.Application.homeGrader()
+GET     /homeG                     controllers.Application.homeGrader()
+GET     /ppp                     controllers.Application.ppp()
 #######################################################################################################################
 # COURSES: /courses
 POST    /courses/create             controllers.CourseController.createCourse()

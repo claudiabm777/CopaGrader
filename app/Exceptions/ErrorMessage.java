@@ -8,4 +8,6 @@ public class ErrorMessage {
     public final static String NOT_CREATED=" no existe en el sistema.";
     public final static String EXISTS=" ya existe ";
     public final static String NOT_EXISTS=" no existe ";
+    public final static String NOT_ACCESS="Usted no tiene permiso de acceder a esta información.";
+
 }

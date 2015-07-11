@@ -43,7 +43,7 @@ body {
 
 .subMenu {
 	position: absolute;
-	top: 630px;
+
 	height: 50px;
 	z-index: 1000;
 	width: 100%;
@@ -56,7 +56,7 @@ body {
 
 .subMenu {
 	padding: 1% 0%;
-	background: #DE654E; 
+	background: #04021b ;
 	float: left;
 }
 
@@ -102,7 +102,7 @@ body {
 	height: auto;
 }
 .right-msg span{
-	 width: 174px;
+	 width: 300px;
 	 height: 56px;
 	 display: inline-block;
 	 background: url(../imagesG1/logo.png) no-repeat 0px 0px;
@@ -196,7 +196,7 @@ a.button.scroll:hover {
 /* services */
 .services {
 	padding: 12% 0 7%;
-	background: #DB5941;
+	background: #1A182C;
 }
 .services h3{
 	font-family: 'Noto Sans', sans-serif;
@@ -246,6 +246,17 @@ a.button.scroll:hover {
 	-moz-transition: all 0.3s ease-in-out;
 	-o-transition: all 0.3s ease-in-out;
 	transition: all 0.3s ease-in-out;
+}
+
+#services > div > div> form> input {
+	cursor: pointer;
+	-webkit-transition: all 0.3s ease-in-out;
+	-moz-transition: all 0.3s ease-in-out;
+	-o-transition: all 0.3s ease-in-out;
+	transition: all 0.3s ease-in-out;
+}
+#services > div > div> form> input:hover {
+	opacity: 0.6;
 }
 #services > div > div> img:hover {
 	opacity: 0.6;
@@ -820,8 +831,8 @@ a.popup-with-zoom-anim img {
 /*---//fun--*/
 /*---blog--*/
 .blog{
-	padding: 7% 0;
-	background: #EFEFEE;
+	padding:3%;
+	background: #fffff0;
 }
 .blog-head{
 	text-align:center;
@@ -843,12 +854,13 @@ a.popup-with-zoom-anim img {
 	margin-bottom: 6%;
 }
 .blog-grid {
-	margin-bottom: 3.2%;
+	margin-bottom: 0%;
 }
 .blog-left{
 	float: left;
-	width: 46%;
+	width: 90%;
 	background:#fff;
+	margin:10px;
 	padding: 15px;
 	 border-radius: 10px;
  	-webkit-border-radius: 10px;
@@ -867,10 +879,8 @@ a.popup-with-zoom-anim img {
 }
 .img-left{
 	float: left;
-	width: 43%;
 }
 .img-left img{
-	width: 100%;
 	cursor:pointer;
 	-webkit-transition: all 1s ease;
 	-moz-transition: all 1s ease;
@@ -882,7 +892,7 @@ a.popup-with-zoom-anim img {
 }
 .text-right {
 	float: right;
-	width: 52%;
+	width: 82%;
 }
 .text-right h6{
 	font-size: 0.8755em;
@@ -1236,7 +1246,7 @@ display:none;
 /*---end-form---*/
 /*---start-footer---*/
 .bottom-footer{
-	background: #EBEBEA;
+	background: #04021a;
 }
 .bottom-footer-left{
 	text-align: center;
@@ -1248,7 +1258,7 @@ display:none;
 }
 .bottom-footer-left p span{
 	font-size: 1em;
-	color: #333;
+	color: #fffff0;
 	margin-top: 1.5em;
 }
 .bottom-footer-left p a{
@@ -1271,7 +1281,7 @@ display:none;
 	-o-border-radius: 30em;
 }
 .bottom-footer {
-	padding: 7% 0;
+	padding: 2% 0;
 }
 .bottom-social-icons li{
 	display: inline-block;
@@ -1443,7 +1453,7 @@ display:none;
 	}
 	div.header {
 		position: relative;
-		background: #DE654E;
+		background: #04021b;
 		padding: 4% 0;
 		height: 0px;
 	}
@@ -1469,6 +1479,11 @@ display:none;
 	#services > div > div> img {
 		width: 80%;
 	}
+
+	#services > div > div> form> input {
+    		width: 80%;
+    	}
+
 	#filters li {
 		margin-right: 5px;
 	}
@@ -1488,7 +1503,7 @@ display:none;
 		padding: 25px;
 	}
 	.blog-left {
-		width: 44%;
+		width: 90%;
 	}
 	.blog-right {
 		width: 45%;
@@ -1541,6 +1556,9 @@ display:none;
 	#services > div > div> img {
 		width: 66%;
 	}
+	#services > div > div> form> input {
+    		width: 66%;
+    	}
 	.services h3, .portfoliO h3, .tm-head h3, .ex-head h3, .fun-head h3, .blog-head h3, .studio-head h3, .client-head h3, .pricing-head h3, .contact h3 {
 		font-size: 1.2em;
 	}
@@ -1569,7 +1587,7 @@ display:none;
 		margin-top: 2px;
 	}
 	.blog-left {
-		width: 43%;
+		width: 90%;
 	}
 	.blog-right {
 		width: 43%;
@@ -1639,6 +1657,12 @@ display:none;
 	    margin-top: 0%;
 		padding-bottom: 0%; 
 	}
+
+	#services > div > div> form> input {
+    		width: 35%;
+    	    margin-top: 0%;
+    		padding-bottom: 0%;
+    	}
 	.span_1_of_3 p {
 		padding: 0.5em 0 0;
 	}

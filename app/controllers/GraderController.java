@@ -1,16 +1,20 @@
 package controllers;
 
-import Exceptions.ErrorMessage;
-import Exceptions.GraderException;
+import Exceptions.*;
 import com.avaje.ebean.Ebean;
+import com.avaje.ebean.SqlRow;
 import com.fasterxml.jackson.databind.JsonNode;
+import models.Activity;
+import models.Course;
 import models.Grader;
+import models.Team;
 import play.*;
 import play.db.ebean.Transactional;
 import play.libs.Json;
 import play.mvc.*;
 import views.html.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -127,5 +131,63 @@ public class GraderController extends Controller {
         }
     }
 
+    public void addTeamGraderActivity(String idGrader, Long idActivity, String idCourse,Long idSemester, Team team) throws Exception {
+        Activity activity=Activity.find.byId(idActivity);
+        if(activity==null){
+            throw new ActivityException(ErrorMessage.NOT_CREATED);
+        }
+        Course course=Course.find.byId(idCourse);
+        if(course==null){
+            throw new CourseException(idCourse,ErrorMessage.NOT_CREATED);
+        }
+        Boolean comp=course.getASemesterFromCourse(idSemester).getActivities().contains(activity);
+        if(!comp){
+            throw new Exception(ErrorMessage.NOT_ACCESS);
+        }
+        Grader grader =Grader.find.byId(idGrader);
+        if(grader==null){
+            throw new GraderException(idGrader,ErrorMessage.NOT_CREATED);
+        }
 
+        grader.addTeam(team);
+        activity.addTeam(team);
+    }
+
+    public static List<Team> getTeamGraderActivity(String idCourse,Long idSemester,String idGrader, Long idActivity) throws Exception {
+        Activity activity=Activity.find.byId(idActivity);
+        if(activity==null){
+            throw new ActivityException(ErrorMessage.NOT_CREATED);
+        }
+        Course course=Course.find.byId(idCourse);
+        if(course==null){
+            throw new CourseException(idCourse,ErrorMessage.NOT_CREATED);
+        }
+        Boolean comp=course.getASemesterFromCourse(idSemester).getActivities().contains(activity);
+        if(!comp){
+            throw new Exception(ErrorMessage.NOT_ACCESS);
+        }
+        List<SqlRow> l=Ebean.createSqlQuery("select team_id from grader_team where grader_email = :email")
+                .setParameter("email", idGrader).findList();
+        System.out.println("99999999999999999999999)))))))");
+        if(l==null){
+            throw new Exception(MessagesViews.ERROR_MESSAGE);
+        }
+        System.out.println(l.toString()+"99999999999999999999999)))))))");
+        List<Team>teams=new ArrayList<Team>();
+        for(SqlRow o:l){
+           Long ll= o.getLong("team_id");
+            if(ll==null){
+                throw new Exception(MessagesViews.ERROR_MESSAGE);
+            }
+            Team team=Team.find.byId(ll);
+            if(team==null){
+                throw new Exception(MessagesViews.ERROR_MESSAGE);
+            }
+            Boolean b=activity.getTeams().contains(team);
+            if(b){
+                teams.add(team);
+            }
+        }
+        return teams;
+    }
 }

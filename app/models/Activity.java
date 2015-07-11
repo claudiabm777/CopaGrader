@@ -42,8 +42,8 @@ public class Activity extends Model {
     @OneToMany(cascade = CascadeType.ALL)
     private List<Team>teams;
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    private List<Admin>adminsInCharge;
+
+    private String adminsInCharge;
 
 
 
@@ -60,7 +60,7 @@ public class Activity extends Model {
         this.creationDate=creationDate;
         this.tasks=new ArrayList<Task>();
         this.teams=new ArrayList<Team>();
-        this.adminsInCharge=new ArrayList<Admin>();
+        this.adminsInCharge="";
     }
 
     //--------------------------------------------------------------------------------------------------------------------------
@@ -83,7 +83,7 @@ public class Activity extends Model {
         return name;
     }
 
-    public List<Admin> getAdminsInCharge() {
+    public String getAdminsInCharge() {
         return adminsInCharge;
     }
 
@@ -116,7 +116,7 @@ public class Activity extends Model {
         this.name = name;
     }
 
-    public void setAdminsInCharge(List<Admin> adminsInCharge) {
+    public void setAdminsInCharge(String adminsInCharge) {
         this.adminsInCharge = adminsInCharge;
     }
 
@@ -137,13 +137,13 @@ public class Activity extends Model {
         if(newAdmin==null){
             throw new AdminException(idAdmin, ErrorMessage.NOT_CREATED);
         }
-        for(int i=0;i<adminsInCharge.size();i++){
-            if((adminsInCharge.get(i).getEmail()).equals(newAdmin.getEmail()))
+
+            if((adminsInCharge.contains(newAdmin.getEmail())))
             {
                 throw new AdminException(this,idAdmin,ErrorMessage.EXISTS);
             }
-        }
-        adminsInCharge.add(newAdmin);
+        System.out.println(newAdmin.getEmail()+"9999999999999999999999999999999999999999999999999999999");
+        adminsInCharge=adminsInCharge+","+newAdmin.getEmail();
     }
 
     public void addTaskToActivity(Task newTask) throws Exception {

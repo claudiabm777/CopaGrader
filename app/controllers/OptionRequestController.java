@@ -52,9 +52,9 @@ public class OptionRequestController extends Controller {
             OptionRequest optionRequest=new OptionRequest(description,isPenalty,creationDate,grader);
             criterion.addOptionRequest(optionRequest);
             criterion.save();
-            List<Admin>admins=activity.getAdminsInCharge();
-            if(admins!=null ){
-            }
+           // List<String>admins=activity.getAdminsInCharge();
+            //if(admins!=null ){
+            //}
             return ok();
         }catch (Throwable e){
             return badRequest(e.getMessage());

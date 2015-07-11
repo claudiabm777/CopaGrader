@@ -9,6 +9,7 @@ create table activity (
   name                      varchar(255),
   deadline                  timestamp,
   creation_date             timestamp,
+  admins_in_charge          varchar(255),
   constraint pk_activity primary key (id))
 ;
 
@@ -143,16 +144,16 @@ create table team (
 ;
 
 
-create table activity_admin (
-  activity_id                    bigint not null,
-  admin_email                    varchar(255) not null,
-  constraint pk_activity_admin primary key (activity_id, admin_email))
-;
-
 create table admin_course (
   admin_email                    varchar(255) not null,
   course_code                    varchar(255) not null,
   constraint pk_admin_course primary key (admin_email, course_code))
+;
+
+create table grader_team (
+  grader_email                   varchar(255) not null,
+  team_id                        bigint not null,
+  constraint pk_grader_team primary key (grader_email, team_id))
 ;
 
 create table semester_grader (
@@ -197,13 +198,13 @@ create index ix_team_activity_14 on team (activity_id);
 
 
 
-alter table activity_admin add constraint fk_activity_admin_activity_01 foreign key (activity_id) references activity (id);
-
-alter table activity_admin add constraint fk_activity_admin_admin_02 foreign key (admin_email) references admin (email);
-
 alter table admin_course add constraint fk_admin_course_admin_01 foreign key (admin_email) references admin (email);
 
 alter table admin_course add constraint fk_admin_course_course_02 foreign key (course_code) references course (code);
+
+alter table grader_team add constraint fk_grader_team_grader_01 foreign key (grader_email) references grader (email);
+
+alter table grader_team add constraint fk_grader_team_team_02 foreign key (team_id) references team (id);
 
 alter table semester_grader add constraint fk_semester_grader_semester_01 foreign key (semester_id) references semester (id);
 
@@ -216,8 +217,6 @@ alter table team_student add constraint fk_team_student_student_02 foreign key (
 # --- !Downs
 
 drop table if exists activity cascade;
-
-drop table if exists activity_admin cascade;
 
 drop table if exists admin cascade;
 
@@ -232,6 +231,8 @@ drop table if exists course cascade;
 drop table if exists criterion cascade;
 
 drop table if exists grader cascade;
+
+drop table if exists grader_team cascade;
 
 drop table if exists major_criterion cascade;
 
