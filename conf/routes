@@ -99,6 +99,7 @@ POST    /claim/delete                controllers.ClaimController.deleteClaim()
 POST    /team/add                   controllers.TeamController.addTeam()
 POST    /team/delete                controllers.TeamController.deleteTeam()
 POST    /team/edit                  controllers.TeamController.editTeam()
+POST    /team/student/add           controllers.TeamController.teamStudentAdd()
 #######################################################################################################################
 GET     /email                      controllers.OptionRequestController.sendEmail()
 #######################################################################################################################

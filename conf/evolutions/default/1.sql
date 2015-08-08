@@ -167,6 +167,12 @@ create table team_student (
   student_id                     bigint not null,
   constraint pk_team_student primary key (team_id, student_id))
 ;
+
+create table team_task (
+  team_id                        bigint not null,
+  task_id                        bigint not null,
+  constraint pk_team_task primary key (team_id, task_id))
+;
 alter table activity add constraint fk_activity_semester_1 foreign key (semester_id) references semester (id);
 create index ix_activity_semester_1 on activity (semester_id);
 alter table bullet add constraint fk_bullet_task_2 foreign key (task_id) references task (id);
@@ -214,6 +220,10 @@ alter table team_student add constraint fk_team_student_team_01 foreign key (tea
 
 alter table team_student add constraint fk_team_student_student_02 foreign key (student_id) references student (id);
 
+alter table team_task add constraint fk_team_task_team_01 foreign key (team_id) references team (id);
+
+alter table team_task add constraint fk_team_task_task_02 foreign key (task_id) references task (id);
+
 # --- !Downs
 
 drop table if exists activity cascade;
@@ -253,4 +263,6 @@ drop table if exists task cascade;
 drop table if exists team cascade;
 
 drop table if exists team_student cascade;
+
+drop table if exists team_task cascade;
 

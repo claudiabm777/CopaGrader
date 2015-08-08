@@ -187,7 +187,7 @@ window.addEventListener("load",function() {
 </div>
 <!---//End-header--->
 <!--- services --->
-<div   style="padding-top: 8%;" class= "services sTop">
+<div   style="padding-top: 8%;padding-bottom: 5%;" class= "services sTop">
 <div class="wrap">
     <h3>GRUPOS</h3>
     <p style="margin-bottom: 0%;">Selecciona el grupo que deseas calificar.</p>
@@ -226,7 +226,7 @@ window.addEventListener("load",function() {
         @helper.form(action = routes.Application.ppp){
             <input class="imgG" name="act" type="image" src="@routes.Assets.versioned("imagesG1/blog11.png")" alt="Submit" value="n">
             }
-        <p style="float:left;margin-left: 7%;font-size: 34px;">Crear equipo</p>
+        <p style="float:left;margin-left: 7.6%;font-size: 27px;">Crear equipo</p>
     </span>
     </div>
 </div>
@@ -242,12 +242,15 @@ window.addEventListener("load",function() {
         <div class="blog-grid">
             <div class="blog-left">
                 <div class="img-left">
-                    <img  src="@routes.Assets.versioned("imagesG1/blog1.png")" alt="" />
+                    <input name="team" type="image" src="@routes.Assets.versioned("imagesG1/blog1.png")" alt="Submit" value="@team.getId()">
+
                 </div>
                 <div class="text-right">
                     <h3><a href="#">@team.getName()</a></h3>
                     <img src="@routes.Assets.versioned("imagesG1/line.png")" alt="" />
-                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry Lorem Ipsum ....</p>
+                    @for(student <- team.getStudents()) {
+                    <p>@student.getNames() @student.getLastNames()   ---   @student.getCode()</p>
+                    }
                     <p><a href="#">MORE</a></p>
                 </div>
                 <div class="clear"> </div>

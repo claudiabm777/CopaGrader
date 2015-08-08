@@ -23,6 +23,9 @@ public class Team extends Model {
     @ManyToMany(cascade = CascadeType.ALL)
     private List<Student>students;
 
+    @ManyToMany(cascade = CascadeType.ALL)
+    private List<Task>tasks;
+
     public static Finder<Long,Team> find = new Finder<Long,Team>(
             Long.class, Team.class
     );
@@ -32,6 +35,8 @@ public class Team extends Model {
     //--------------------------------------------------------------------------------------------------------------------------
     public Team(String name){
         students=new ArrayList<Student>();
+
+        this.tasks=new ArrayList<Task>();
         this.name=name;
     }
     //--------------------------------------------------------------------------------------------------------------------------
@@ -45,6 +50,14 @@ public class Team extends Model {
         return name;
     }
 
+    public List<Task> getTasks() {
+        return tasks;
+    }
+
+    public List<Student> getStudents() {
+        return students;
+    }
+
     //--------------------------------------------------------------------------------------------------------------------------
     //Setters-------------------------------------------------------------------------------------------------------------------
     //--------------------------------------------------------------------------------------------------------------------------
@@ -54,5 +67,17 @@ public class Team extends Model {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public void setTasks(List<Task> tasks) {
+        this.tasks = tasks;
+    }
+
+    public void setStudents(List<Student> students) {
+        this.students = students;
+    }
+
+    public void addTaskToActivity(Task newTask) throws Exception {
+        tasks.add(newTask);
     }
 }

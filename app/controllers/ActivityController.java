@@ -2,6 +2,7 @@ package controllers;
 
 import Exceptions.ActivityException;
 import Exceptions.ErrorMessage;
+import Exceptions.TaskException;
 import com.fasterxml.jackson.databind.JsonNode;
 import models.Activity;
 import models.Task;
@@ -111,7 +112,7 @@ public class ActivityController extends Controller {
                 throw new ActivityException( ErrorMessage.NOT_CREATED);
             }
             if(task==null){
-                throw new ActivityException( ErrorMessage.NOT_CREATED);
+                throw new TaskException( ErrorMessage.NOT_CREATED);
             }
             activity.addTaskToActivity(task);
             activity.save();
